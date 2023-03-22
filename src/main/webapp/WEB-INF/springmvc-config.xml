@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+    <context:annotation-config />
+    <!-- 配置自动扫描的包，完成 Bean 的创建和自动依赖注入的功能 -->
+    <context:component-scan base-package="pers.yuweiyi.YoE_logistics.controller" />
+<!--    &lt;!&ndash; 这两个类用来配置 annotation 类型的处理器映射器和处理器适配器 &ndash;&gt;-->
+<!--    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />-->
+<!--    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />-->
+
+    <!-- 配置视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/page/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!-- 视图控制器 -->
+<!--    <mvc:view-controller path="/" view-name="index"/>-->
+    <mvc:view-controller path="not_implemented" view-name="not_implemented"/>
+    <mvc:view-controller path="about_author" view-name="about_author"/>
+    <mvc:view-controller path="about_project" view-name="about_project"/>
+    <mvc:view-controller path="limit_rule" view-name="limit_rule"/>
+    <mvc:view-controller path="fee_rule" view-name="fee_rule"/>
+    <mvc:view-controller path="place_order" view-name="place_order"/>
+    <mvc:view-controller path="place_order_employee_assistance" view-name="place_order_employee_assistance"/>
+
+    <!--过滤静态资源:导入layui时-->
+    <mvc:resources mapping="/layui/**" location="layui/"/>
+    <mvc:resources mapping="/static/**" location="static/"/>
+<!--    <mvc:resources mapping="/WEB_INF/**" location="WEB-INF/"/>-->
+
+    <!-- spring mvc 的注解驱动-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+</beans>

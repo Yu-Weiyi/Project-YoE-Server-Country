@@ -1,0 +1,178 @@
+package pers.yuweiyi;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.hugegraph.driver.GraphManager;
+import org.apache.hugegraph.driver.GremlinManager;
+import org.apache.hugegraph.driver.SchemaManager;
+import org.apache.hugegraph.structure.constant.T;
+import org.apache.hugegraph.structure.graph.Edge;
+import org.apache.hugegraph.structure.graph.Path;
+import org.apache.hugegraph.structure.graph.Vertex;
+import org.apache.hugegraph.structure.gremlin.Result;
+import org.apache.hugegraph.structure.gremlin.ResultSet;
+import pers.yuweiyi.YoE_logistics.util.GraphDatabaseUtil;
+
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * projectName: YoE-logistics-Server-Country <br/>
+ * className: YoE_logistics_Server_Country <br/>
+ * description: 示例程序主入口。 <br/>
+ *
+ * @author yu_weiyi 于魏祎 <a href="mailto:yu_weiyi@outlook.com" >yu_weiyi@outlook.com</a> <br/>
+ * @version 0.1 <br/>
+ * @since 1/23/2023 3:13 PM <br/>
+ */
+@Slf4j
+public class YoE_logistics_Server_CountryTest {
+    public static void main(String[] args){
+        log.info("YoE-logistics-Server-Country: Program start");
+
+        GraphDatabaseUtil.initDBConnection();
+
+
+        //test
+        SchemaManager schema = GraphDatabaseUtil.schemaManager;
+        GraphManager graph = GraphDatabaseUtil.graphManager;
+        GremlinManager gremlin = GraphDatabaseUtil.gremlinManager;
+
+        //创建属性
+        schema.propertyKey("name").asText().ifNotExist().create();
+        schema.propertyKey("age").asInt().ifNotExist().create();
+        schema.propertyKey("city").asText().ifNotExist().create();
+        schema.propertyKey("weight").asDouble().ifNotExist().create();
+        schema.propertyKey("lang").asText().ifNotExist().create();
+        schema.propertyKey("date").asDate().ifNotExist().create();
+        schema.propertyKey("price").asInt().ifNotExist().create();
+
+        //创建顶点类型
+        schema.vertexLabel("person")//顶点类型名称
+                .properties("name", "age", "city")//关联属性
+                .primaryKeys("name")//主键属性
+                .ifNotExist()
+                .create();
+
+        schema.vertexLabel("software")
+                .properties("name", "lang", "price")
+                .primaryKeys("name")
+                .ifNotExist()
+                .create();
+
+        //创建属性索引
+        schema.indexLabel("personByCity")//索引名称
+                .onV("person")//顶点类型名称
+                .by("city")//属性
+                .secondary()//索引类型：二级索引
+                .ifNotExist()
+                .create();
+
+        schema.indexLabel("personByAgeAndCity")
+                .onV("person")
+                .by("age", "city")
+                .secondary()
+                .ifNotExist()
+                .create();
+
+        schema.indexLabel("softwareByPrice")
+                .onV("software")
+                .by("price")
+                .range()//索引类型：范围索引
+                .ifNotExist()
+                .create();
+
+        //创建边类型
+        schema.edgeLabel("knows")//边类型名称
+                .sourceLabel("person")//起点类型
+                .targetLabel("person")//终点类型
+                .properties("date", "weight")//关联属性
+                .ifNotExist()
+                .create();
+
+        schema.edgeLabel("created")
+                .sourceLabel("person").targetLabel("software")
+                .properties("date", "weight")
+                .ifNotExist()
+                .create();
+
+        schema.indexLabel("createdByDate")
+                .onE("created")
+                .by("date")
+                .secondary()
+                .ifNotExist()
+                .create();
+
+        schema.indexLabel("createdByWeight")
+                .onE("created")
+                .by("weight")
+                .range()
+                .ifNotExist()
+                .create();
+
+        schema.indexLabel("knowsByWeight")
+                .onE("knows")
+                .by("weight")
+                .range()
+                .ifNotExist()
+                .create();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //创建顶点
+        Vertex marko = graph.addVertex(T.LABEL, "person", "name", "marko",
+                "age", 29, "city", "Beijing");
+        Vertex vadas = graph.addVertex(T.LABEL, "person", "name", "vadas",
+                "age", 27, "city", "Hongkong");
+        Vertex lop = graph.addVertex(T.LABEL, "software", "name", "lop",
+                "lang", "java", "price", 328);
+        Vertex josh = graph.addVertex(T.LABEL, "person", "name", "josh",
+                "age", 32, "city", "Beijing");
+        Vertex ripple = graph.addVertex(T.LABEL, "software", "name", "ripple",
+                "lang", "java", "price", 199);
+        Vertex peter = graph.addVertex(T.LABEL, "person", "name", "peter",
+                "age", 35, "city", "Shanghai");
+
+        //创建边
+        marko.addEdge("knows", vadas, "date", "2016-01-10", "weight", 0.5);
+        marko.addEdge("knows", josh, "date", "2013-02-20", "weight", 1.0);
+        marko.addEdge("created", lop, "date", "2017-12-10", "weight", 0.4);
+        josh.addEdge("created", lop, "date", "2009-11-11", "weight", 0.4);
+        josh.addEdge("created", ripple, "date", "2017-12-10", "weight", 1.0);
+        peter.addEdge("created", lop, "date", "2017-03-24", "weight", 0.2);
+
+        //查询
+        ResultSet resultSet = gremlin.gremlin("g.V().outE().path()").execute();//运行Gremiln语句查询
+        Iterator<Result> results = resultSet.iterator();
+        results.forEachRemaining(result -> {
+            System.out.println(result.getObject().getClass());
+            Object object = result.getObject();
+            if (object instanceof Vertex) {
+                System.out.println(((Vertex) object).id());
+            } else if (object instanceof Edge) {
+                System.out.println(((Edge) object).id());
+            } else if (object instanceof Path) {
+                List<Object> elements = ((Path) object).objects();
+                elements.forEach(element -> {
+                    System.out.println(element.getClass());
+                    System.out.println(element);
+                });
+            } else {
+                System.out.println(object);
+            }
+        });
+
+        //end
+        GraphDatabaseUtil.closeDBConnection();
+    }
+}
