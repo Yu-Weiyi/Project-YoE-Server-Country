@@ -50,22 +50,3 @@ function btn_show_tip_wechat() {
         tips: [1, '#393D49']
     });
 };
-
-// function place_order_employee_assistance_form_btn_p1_next() {
-//     window.alert("11111111");
-//
-//     var palce_order_employee_assistance_form_p1 = document.getElementById('place_order_employee_assistance_form_p1'),
-//         palce_order_employee_assistance_form_p2 = document.getElementById('place_order_employee_assistance_form_p2');
-//
-//     window.alert("2222222");
-//
-//     palce_order_employee_assistance_form_p1.style.display = 'none';
-//     palce_order_employee_assistance_form_p2.style.display = 'block';
-//
-//     window.alert("333333");
-//
-//     element.progress('place_order_employee_assistance_progress_bar', '20%')
-//
-//
-//     window.alert("44444444");
-// }

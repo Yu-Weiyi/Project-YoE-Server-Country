@@ -1,0 +1,187 @@
+@media print{
+    body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
+    body, button, input, select, textarea { font:12px/1.5  arial,"黑体", \5b8b\4f53; }
+    h1, h2, h3, h4, h5, h6{ font-size:100%; }
+    address, cite, dfn, em, var { font-style:normal; }
+    code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
+    small{ font-size:12px; }
+    ul, ol { list-style:none; }
+    a { text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    sup { vertical-align:text-top; }
+    sub{ vertical-align:text-bottom; }
+    legend { color:#000; }
+    fieldset, img { border:0; }
+    button, input, select, textarea { font-size:100%; }
+    table { border-collapse:collapse; border-spacing:0; }
+
+    .no-print{
+        display:none;
+    }
+    @page{
+        size: 100mm 150mm;
+        margin: 1.75mm;
+    }
+
+    #printPage {
+        width: 96mm;
+        height: 146mm;
+        position: relative;
+        border: 1px dotted #000000;
+        box-sizing: border-box;
+    }
+
+    #printPage span{
+        margin-left: 2mm;
+    }
+
+    .left {
+        border-left: 1px dotted #000000;
+        border-right: 1px dotted #000000;
+        border-bottom: 1px dotted #000000;
+        left: 0;
+    }
+
+    .right {
+        border-right: 1px dotted #000000;
+        border-bottom: 1px dotted #000000;
+        /*right: 0;*/
+    }
+
+    .deviation{
+        margin-left: 2mm;
+    }
+
+    #emsType{
+        width: 40mm;
+        height: 14mm;
+        position: absolute;
+        top: 0;
+        padding-top: 6mm;
+        font-size: 20px;
+        border-top: 1px dotted #000000;
+    }
+
+    #barcode{
+        width: 56mm;
+        height: 20mm;
+        position: absolute;
+        top: 0;
+        left: 40mm;
+        border-top: 1px dotted #000000;
+    }
+
+    #sender{
+        width: 46mm;
+        height: 15mm;
+        font-size: 12px;
+        position: absolute;
+        top: 20mm;
+    }
+
+    #area{
+        width: 50mm;
+        height: 15mm;
+        position: absolute;
+        top: 20mm;
+        left: 46mm;
+    }
+
+    #recipient{
+        width: 96mm;
+        height: 17mm;
+        position: absolute;
+        left: 0;
+        top: 35mm;
+        font-size: 12px;
+    }
+
+    #pay{
+        width: 40mm;
+        height: 14mm;
+        position: absolute;
+        top: 52mm;
+        font-size: 12px;
+    }
+
+    #delivers{
+        width: 56mm;
+        height: 14mm;
+        position: absolute;
+        top: 52mm;
+        left: 40mm;
+        font-size: 12px;
+    }
+
+    #order{
+        width: 96mm;
+        height: 20mm;
+        position: absolute;
+        left: 0;
+        top: 66mm;
+        font-size: 12px;
+
+    }
+
+    #divide{
+        width: 96mm;
+        height: 4mm;
+        position: absolute;
+        left: 0;
+        top: 86mm;
+    }
+
+    #number{
+        width: 96mm;
+        height: 15mm;
+        position: absolute;
+        left: 0;
+        top: 90mm;
+        font-size: 12px;
+    }
+
+    #send{
+        width: 40mm;
+        height: 17mm;
+        position: absolute;
+        top: 105mm;
+        font-size: 12px;
+    }
+
+    #pickup{
+        width: 56mm;
+        height: 17mm;
+        position: absolute;
+        top: 105mm;
+        left: 40mm;
+        font-size: 12px;
+    }
+
+    #remark{
+        width: 68mm;
+        height: 17mm;
+        position: absolute;
+        top: 122mm;
+        font-size: 12px;
+    }
+
+    #net{
+        width: 68mm;
+        height: 7mm;
+        position: absolute;
+        top: 139mm;
+        font-size: 12px;
+    }
+
+    #QRCode{
+        width: 28mm;
+        height: 24mm;
+        position: absolute;
+        top: 122mm;
+        left: 68mm;
+    }
+
+    #note{
+        font-size: 6px;
+    }
+}

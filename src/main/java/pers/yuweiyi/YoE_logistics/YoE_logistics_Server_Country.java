@@ -35,16 +35,7 @@ public class YoE_logistics_Server_Country {
 
 
 
-        //TODO 修改gremlin格式
-
-        //TODO 补全entities，dao，impl等包                -ing
-            //补充graph.DataStorage, Graph.PathPlanning
-            //准备对接services包业务
-        //TODO 设计相关对象
-        //TODO 补全services包                            -ing
-        //TODO 编写socket操作 SocketUtil
-        //TODO 编写运行处理流程
-        //TODO 架设程序主体：启动/循环/终止
+        //TODO ___Enum.valueOf(String) -> ___Enum.values()[int]
 
         //TODO 归档整理线程
         //TODO 连接处理线程

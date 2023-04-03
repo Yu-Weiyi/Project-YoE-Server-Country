@@ -25,8 +25,8 @@ public class RecordPO {
     @NotNull private String name;//内容
 
     public RecordPO(@NotNull Vertex vertex){
-        this.datetime = (Date) vertex.property("datetime");
-        this.recordType = RecordTypeEnum.valueOf((String) vertex.property("recordType"));
+        this.datetime = new Date((long) vertex.property("datetime"));
+        this.recordType = RecordTypeEnum.values()[(int) vertex.property("recordType")];
         this.name = (String) vertex.property("name");
     }
 }

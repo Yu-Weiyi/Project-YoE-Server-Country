@@ -24,6 +24,7 @@ import pers.yuweiyi.YoE_logistics.init.GraphDatabaseSchemaDataInitializer;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -37,7 +38,7 @@ import java.util.Set;
  */
 //@Slf4j
 public class GraphDatabaseUtil {
-    public static String databaseUrl = "http://172.25.138.254:8080";
+    public static String databaseUrl = "http://172.25.141.99:8080";
     public static String databaseName = "hugegraph";
     static HugeClient hugeClient;
     public static SchemaManager schemaManager;
@@ -62,36 +63,6 @@ public class GraphDatabaseUtil {
         gremlinManager = gremlin;
 //        log.info("Graph Database {} - GremlinManager: Open", databaseName);
     }
-
-//    @Bean
-//    public HugeClient openConnection(){
-//        HugeClient client = HugeClient.builder(databaseUrl, databaseName).build();
-//        return client;
-//    }
-
-//    public void openConnection(){
-//        HugeClient client = HugeClient.builder(databaseUrl, databaseName).build();
-//        log.info("Graph Database {}: Connected", databaseName);
-//        hugeClient = client;
-//        log.info("Graph Database {} - HugeClient: Open", databaseName);
-//
-//        SchemaManager schema = hugeClient.schema();
-//        schemaManager = schema;
-//        log.info("Graph Database {} - SchemaManager: Open", databaseName);
-//
-//        GraphManager graph = hugeClient.graph();
-//        graphManager = graph;
-//        log.info("Graph Database {} - GraphManager: Open", databaseName);
-//
-//        GremlinManager gremlin = hugeClient.gremlin();
-//        gremlinManager = gremlin;
-//        log.info("Graph Database {} - GremlinManager: Open", databaseName);
-//    }
-
-//    public void closeConnection(){
-//        hugeClient.close();
-//        log.info("HugeClient of Graph Database {}: Closed", databaseName);
-//    }
 
     public static void initializeData(){
         GraphDatabaseSchemaDataInitializer graphDatabaseSchemaDataInitializer = new GraphDatabaseSchemaDataInitializer();
@@ -133,10 +104,12 @@ public class GraphDatabaseUtil {
     }
 
     public static Path cutPathFromHead(Path path, int number){
-        for (int i = 0; i < number; i++){
-            path.labels().remove(0);
-            path.objects().remove(0);
-        }
-        return path;
+        List<Object> list = path.objects();
+
+        list = list.subList(number, list.size());
+
+        Path newPath = new Path(list);
+
+        return newPath;
     }
 }

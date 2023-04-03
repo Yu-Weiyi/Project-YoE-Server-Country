@@ -14,10 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class PageController {
+    // 首页
     @RequestMapping("/index")
     public String index() {
         return "index";
     }
+
+//    // 页面公共部分
+//    @RequestMapping("/component/header")
+//    public String component_header() {return "";}
+//
+//    @RequestMapping("/component/footer")
+//    public String component_footer() {return "component/footer";}
+//
+//    @RequestMapping("/component/fixbar")
+//    public String component_fixbar() {return "component/fixbar";}
 
     @RequestMapping("/not_implemented")
     public String not_implemented() {
@@ -52,5 +63,16 @@ public class PageController {
     @RequestMapping("/place_order_employee_assistance")
     public String place_order_employee_assistance() {
         return "place_order_employee_assistance";
+    }
+
+    @RequestMapping("/search_order")
+    public String search_order() {
+        return "search_order";
+    }
+
+    // TEST
+    @RequestMapping("/test")
+    public String test() {
+        return "test";
     }
 }

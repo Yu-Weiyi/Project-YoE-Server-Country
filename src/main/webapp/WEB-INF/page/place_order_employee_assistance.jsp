@@ -20,6 +20,9 @@
         <!-- jQuery -->
         <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+        <!-- JsBarcode 用于生成条码 -->
+        <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
         <title>邮易 YoE 仓储物流 员工辅助寄件</title>
 
         <script type="text/javascript" charset="UTF-8" src="static/js/layui.js"></script>
@@ -32,6 +35,45 @@
                 padding:0;
             }
         </style>
+        <style type="text/css">
+            @import url("/static/css/print.css") print;
+        </style>
+        <script language="javascript">
+            function remove_ie_header_and_footer() {
+                let HKEY_Root, HKEY_Path, HKEY_Key;
+                HKEY_Root = "HKEY_CURRENT_USER";
+                HKEY_Path = "\\Software\\Microsoft\\Internet Explorer\\PageSetup\\";
+                try {
+                    let RegWsh = new ActiveXObject("WScript.Shell");
+                    HKEY_Key = "header";
+                    RegWsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "");
+                    HKEY_Key = "footer";
+                    RegWsh.RegWrite(HKEY_Root + HKEY_Path + HKEY_Key, "");
+                }
+                catch (e) {}
+            }
+            function printPage(printpage)
+            {
+                if (!!window.ActiveXObject || "ActiveXObject" in window) { //是否ie
+                    remove_ie_header_and_footer();
+                }
+                let newstr = printpage.innerHTML;
+                let oldstr = document.body.innerHTML;
+                document.body.innerHTML =newstr;
+                window.print();
+                document.body.innerHTML=oldstr;
+                return false;
+            }
+            window.onload = function()
+            {
+                let bt=document.getElementById("bt");
+                let page=document.getElementById("printPage");
+                bt.onclick=function()
+                {
+                    printPage(page);
+                }
+            }
+        </script>
     </head>
     <body>
         <div class="layui-header">
@@ -100,7 +142,7 @@
                 <div class="layui-row" style="height: 20px"></div>
                 <div class="layui-container">
                     <div class="layui-progress layui-progress-big" lay-showPercent="true" lay-fliter="place_order_employee_assistance_progress_bar">
-                        <div class="layui-progress-bar layui-bg-green" style="width: 80%" lay-percent="0%"></div>
+                        <div class="layui-progress-bar layui-bg-green" style="width: 80%; display: none" lay-percent="100%" id="place_order_employee_assistance_progress_bar"></div>
                     </div>
                     <div class="layui-row" style="height: 20px"></div>
                     <form class="layui-form layui-font-black" align="left" style="display: block; width: 60%" id="place_order_employee_assistance_form" lay-filter="place_order_employee_assistance_form">
@@ -314,6 +356,96 @@
                     </form>
                 </div>
                 <div class="layui-row" style="height: 20px"></div>
+                <div class="layui-row" id="print_block" style="display: none">
+                    <!--startPrint-->
+                    <div id="printPage" style="display: none">
+                        <div id="emsType" class="left">
+                            <span><img src="/static/image/logo_YoE.png" width="100px" height="50px"/></span>
+                        </div>
+
+                        <div id="barcode" class="right">
+                            <span class="deviation layui-font-14">邮易 YoE 仓储物流 面单</span>
+                            <br/>
+                            <br/>
+                            <span class="deviation layui-font-14">——源自重邮 易览神州——</span>
+                        </div>
+
+                        <div id="sender" class="left">
+                            <span class="deviation">寄件：</span>
+                            <br/>
+                            <span id="print_consigner_name"></span>
+                            <br/>
+                            <span id="print_consigner_phone"></span>
+                        </div>
+
+                        <div id="area" class="right">
+                            <span class="deviation" id="print_consigner_address"></span>
+                        </div>
+
+                        <div id="recipient" class="left">
+                            <span class="deviation">收件：</span>
+                            <span class="deviation" id="print_consignee_name"></span>
+                            <span class="deviation" id="print_consignee_phone"></span>
+                            <span class="deviation" id="print_consignee_address"></span>
+                        </div>
+
+                        <div id="pay" class="left">
+                            <span class="deviation">付款方式：</span>
+                            <br/>
+                            <span id="print_order_type"></span>
+                            <br/>
+                        </div>
+
+                        <div id="delivers" class="right">
+                            <span class="deviation">收件人\代收人：</span>
+                            <span></span>
+                            <br/>
+                            <span class="deviation">时间：</span>
+                            <br/>
+                            <span id="note">快件送达收货人地址，经收件人或收件人允许的代收人签字，视为送达.</span>
+                        </div>
+
+                        <div id="order" class="left">
+                            <span class="deviation">信息：</span>
+                            <br/>
+                            <span id="print_cargo_info"></span>
+                        </div>
+
+                        <div id="divide" class="left">
+                        </div>
+
+                        <div id="number" class="left right">
+                            <span class="deviation">条码：</span>
+                            <svg id="barcode_1"></svg>
+                        </div>
+
+                        <div id="send" class="left right">
+                            <span class="deviation">异常及其原因：</span>
+                        </div>
+
+                        <div id="pickup" class="right">
+                            <span class="deviation">订单号：</span>
+                            <br/>
+                            <span class="layui-font-18" id="print_order_id"></span>
+                        </div>
+
+                        <div id="remark" class="left">
+                            <span class="deviation">条码：</span>
+                            <br/>
+                            <svg id="barcode_2"></svg>
+                        </div>
+
+                        <div id="net" class="left">
+                            <span class="deviation">详询官网 http://122.9.161.251:8080/YoE/ </span>
+                        </div>
+
+                        <div id="QRCode" class="right">
+                            <span><img src="/static/image/qrcode_YoE.png" width="100px" height="100px"/></span>
+                        </div>
+                    </div>
+                    <!--endPrint-->
+                    <input name="print" class=" no-print layui-btn layui-btn-radius" type="button" id="bt" value="打印" />
+                </div>
             </div>
             <div class="layui-row" style="height: 10px"></div>
         </div>
@@ -426,6 +558,7 @@
     <script type="text/javascript">
         layui.use(function () {
             var upload = layui.upload,
+                element = layui.element,
                 form = layui.form,
                 layer = layui.layer;
 
@@ -554,26 +687,58 @@
             });
 
             form.on('submit(place_order_employee_assistance_form_btn)', function(data){
-                var param=data.field;//定义临时变量获取表单提交过来的数据，非json格式
-                console.log(JSON.stringify(param));//测试是否获取到表单数据，调试模式下在页面控制台查看
+                var param = data.field;//定义临时变量获取表单提交过来的数据，非json格式
+                var form_data = JSON.stringify(param);
                 $.ajax({
-                    type:'POST',
-                    url:"order/place_order",
-                    dataType:'json',//预期服务器返回的数据类型
-                    data:JSON.stringify(param),//表格数据序列化
+                    type: 'POST',
+                    // async: false,//改为同步请求
+                    url: "order/place_order",
+                    dataType: 'text',//预期服务器返回的数据类型
+                    data: form_data,//表格数据序列化
                     contentType: "application/json; charset=utf-8",
-                    success:function(res){//res为相应体,function为回调函数
-                        if(res.status===200){
-                            layer.alert('提交成功',{icon:1});
-                            //$("#res").click();//调用重置按钮将表单数据清空
+                    success: function(res){//res为响应体,function为回调函数
+                        layer.alert('提交成功', {icon: 1});
+                        var return_data = JSON.parse(res + '');
+                        document.getElementById('place_order_employee_assistance_form').style.display = 'none';
+                        document.getElementById('print_block').style.display = 'block';
+                        document.getElementById('place_order_employee_assistance_progress_bar').style.display = 'block';
+
+                        document.getElementById('print_consigner_name').innerHTML = document.getElementsByName('consigner_name').item(0).value;
+                        document.getElementById('print_consigner_phone').innerHTML = document.getElementsByName('consigner_phone').item(0).value;
+                        document.getElementById('print_consigner_address').innerHTML = document.getElementsByName('consigner_province').item(0).value + document.getElementsByName('consigner_city').item(0).value + document.getElementsByName('consigner_address').item(0).value;
+                        document.getElementById('print_consignee_name').innerHTML = document.getElementsByName('consignee_name').item(0).value;
+                        document.getElementById('print_consignee_phone').innerHTML = document.getElementsByName('consignee_phone').item(0).value;
+                        document.getElementById('print_consignee_address').innerHTML = document.getElementsByName('consignee_province').item(0).value + document.getElementsByName('consignee_city').item(0).value + document.getElementsByName('consignee_address').item(0).value;
+                        if (document.getElementsByName('order_type').item(0).value == 0) {
+                            document.getElementById('print_order_type').innerHTML = '现付' + return_data.fee + '元';
                         }
-                        else{
-                            layer.alert(data.msg,{icon:5});
+                        else {
+                            document.getElementById('print_order_type').innerHTML = '到付' + return_data.fee + '元';
                         }
+                        document.getElementById('print_order_id').innerHTML = return_data.order_id;
+                        document.getElementById('print_cargo_info').innerHTML = document.getElementsByName('cargo_info').item(0).value;
+
+                        $("#barcode_1").JsBarcode(return_data.order_id, {
+                            format: "CODE128",
+                            lineColor: "#0aa",
+                            width: 2.5,
+                            height: 20,
+                            displayValue: false
+                        });
+                        $("#barcode_2").JsBarcode(return_data.order_id, {
+                            format: "CODE128",
+                            lineColor: "#0aa",
+                            width: 2,
+                            height: 25,
+                            displayValue: false
+                        });
+
+                        element.progress('place_order_employee_assistance_progress_bar', '100%')
+                        element.render('progress', 'place_order_employee_assistance_progress_bar')
                     },
-                    // error:function(){
-                    //     layer.alert('提交失败',{icon:5});
-                    // }
+                    error: function(res){
+                        layer.alert('提交失败', {icon: 5});
+                    }
                 });
                 return false; //阻止表单跳转
             });

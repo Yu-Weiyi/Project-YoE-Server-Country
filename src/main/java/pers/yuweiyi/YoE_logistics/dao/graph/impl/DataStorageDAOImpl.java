@@ -123,11 +123,11 @@ public class DataStorageDAOImpl implements DataStorageDAO {
                   "has('order', 'id', '" + orderId + "')." +
                   "out('startRecord')." +
                   "repeat(out()).emit(hasLabel('record'))." +
-                  "path()." +
-                  "tail(1)"
+                  "path()"
         ).execute();
         Path path = GraphDatabaseUtil.changeResultSetToPathSet(resultSet).iterator().next();
-        path = GraphDatabaseUtil.cutPathFromHead(path, 1);//去除头部Order的部分,但仍至少剩余一个空的Record。
+
+        path = GraphDatabaseUtil.cutPathFromHead(path, 2);//去除头部Order的部分,但仍至少剩余一个空的Record。
         return path;
     }
 }

@@ -21,15 +21,10 @@
 
     <title>邮易 YoE 仓储物流 首页</title>
 
-    <script type="text/javascript" charset="UTF-8" src="static/js/layui.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/static/js/layui.js"></script>
 
-    <style>
-      html,body{
-        height: 100%;
-        width: 100%;
-        margin:0;
-        padding:0;
-      }
+    <style type="text/css">
+      @import url("/static/css/body.css") main;
     </style>
   </head>
   <body>
@@ -51,7 +46,7 @@
             <a href="javascript:;"><i class="layui-icon layui-icon-form"></i> 业务办理</a>
             <dl class="layui-nav-child layui-bg-green">
               <dd><a href="place_order">我要寄件</a></dd>
-              <dd><a href="">我要查件</a></dd>
+              <dd><a href="search_order">我要查件</a></dd>
             </dl>
           </li>
           <li class="layui-nav-item">
@@ -66,8 +61,8 @@
           <li class="layui-nav-item">
             <a href="javascript:;"><i class="layui-icon layui-icon-website"></i> 国际物流服务</a>
             <dl class="layui-nav-child layui-bg-green">
-              <dd><a href="">国际空运邮寄<span class="layui-badge layui-bg-orange">X</span></a></dd>
-              <dd><a href="">国际大宗水运<span class="layui-badge layui-bg-orange">X</span></a></dd>
+              <dd><a href="not_implemented">国际空运邮寄<span class="layui-badge layui-bg-orange">X</span></a></dd>
+              <dd><a href="not_implemented">国际大宗水运<span class="layui-badge layui-bg-orange">X</span></a></dd>
             </dl>
           </li>
           <li class="layui-nav-item">
@@ -199,7 +194,7 @@
               </div>
               <div class="layui-row" style="height: 20px"></div>
               <div class="layui-row">
-                <h5><a href="not_implemented" class="layui-font-gray">订单查件</a></h5>
+                <h5><a href="search_order" class="layui-font-gray">订单查件</a></h5>
               </div>
             </div>
             <div class="layui-col-md3">

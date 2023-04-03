@@ -30,25 +30,20 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public Vertex insert(@NotNull OrderPO orderPO) {
-        String str = "g.addV('order')." +
-                "property('id', '" + orderPO.getId() + "')." +
-                "property('orderType', " + orderPO.getOrderType().ordinal() + ")." +
-                "property('status', " + orderPO.getOrderStatus().ordinal() + ")." +
-                "property('fee', " + orderPO.getFee() + ")." +
-                "property('cargoType', " + orderPO.getCargoType().ordinal() + ")." +
-                "property('information', '" + orderPO.getInformation() + "')." +
-                "property('inspect', '" + orderPO.getInspect() + "')." +
-                "property('addressFrom', '" + orderPO.getAddressFrom() + "')." +
-                "property('addressTo', '" + orderPO.getAddressTo() + "')." +
-                "property('consigneeName', '" + orderPO.getConsigneeName() + "')." +
-                "property('consigneePhone', '" + orderPO.getConsigneePhone() + "')." +
-                "property('datetimeStart', " + orderPO.getDatetimeStart().getTime() + ")";
-
-        System.out.println(str);
-
-
-        ResultSet resultSet = gremlin.gremlin(str
-
+        ResultSet resultSet = gremlin.gremlin(
+                "g.addV('order')." +
+                        "property('id', '" + orderPO.getId() + "')." +
+                        "property('orderType', " + orderPO.getOrderType().ordinal() + ")." +
+                        "property('status', " + orderPO.getOrderStatus().ordinal() + ")." +
+                        "property('fee', " + orderPO.getFee() + ")." +
+                        "property('cargoType', " + orderPO.getCargoType().ordinal() + ")." +
+                        "property('information', '" + orderPO.getInformation() + "')." +
+                        "property('inspect', '" + orderPO.getInspect() + "')." +
+                        "property('addressFrom', '" + orderPO.getAddressFrom() + "')." +
+                        "property('addressTo', '" + orderPO.getAddressTo() + "')." +
+                        "property('consigneeName', '" + orderPO.getConsigneeName() + "')." +
+                        "property('consigneePhone', '" + orderPO.getConsigneePhone() + "')." +
+                        "property('datetimeStart', " + orderPO.getDatetimeStart().getTime() + ")"
                 //此处未插入结束时间datetimeEnd
         ).execute();
         Set<Vertex> vertexSet = GraphDatabaseUtil.changeResultSetToVertexSet(resultSet);
