@@ -1,20 +1,21 @@
-邮驿物流YoE-logistics
+邮驿 YoE 仓储物流
 ===
 ## 技术栈
+- 项目管理 Maven
+- 代码管理 Git
 - 前端
   - HTML
   - CSS
   - JavaScript
-- 项目管理
-  - Maven
-- 程序框架
-  - Spring（主框架）
-  - Spring MVC（Web框架）
-- 日志
-  - SLF4j（抽象）
-  - Log4j2（实现）
-- 持久化
-  - HugeGraph（图数据库）
-  - PostgreSQL（数据库后端数据库）
-- Web服务器
-  - Tomcat
+  - JSP
+  - UI框架 Layui
+  - Web服务器 Tomcat
+- 后端
+  - 主框架 Spring
+  - Web框架 Spring MVC
+  - 持久化
+    - 图数据库 HugeGraph
+      - 后端数据库 PostgreSQL
+  - 日志
+    - 门面 SLF4J
+    - 实现 Log4J2

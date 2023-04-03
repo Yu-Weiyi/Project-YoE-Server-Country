@@ -7,17 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="Yu Weiyi 于魏祎 yu_weiyi@outlook.com">
 
-    <!-- Bootstrap -->
-    <%--        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">--%>
-    <%--        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/mhDoLbDldZc3qpsJHpLogda//BVZbgYuw6kof4u2FrCedxOtgRZDTHgHUhOCVim" crossorigin="anonymous"></script>--%>
-
     <!-- Layui -->
     <link href="/layui/css/layui.css" rel="stylesheet">
     <script src="/layui/layui.js"></script>
-    <%--        <!-- CDN引入 -->--%>
-    <%--        <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" />--%>
-    <%--        <script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>--%>
-
 
     <title>邮易 YoE 仓储物流 首页</title>
 
@@ -68,8 +60,9 @@
           <li class="layui-nav-item">
             <a href="javascript:;"><i class="layui-icon layui-icon-fonts-code"></i> 科技赋能</a>
             <dl class="layui-nav-child layui-bg-green">
-              <dd><a href="">图数据库 Hugegraph</a></dd>
-              <dd><a href="">前端UI框架 Layui</a></dd>
+              <dd><a href="https://hugegraph.apache.org/cn/" target="_blank">图数据库 Hugegraph</a></dd>
+              <dd><a href="https://spring.io/" target="_blank">后端框架 Spring</a></dd>
+              <dd><a href="http://layui.org.cn/index.html" target="_blank">前端UI框架 Layui</a></dd>
             </dl>
           </li>
           <li class="layui-nav-item">
@@ -78,7 +71,7 @@
           <li class="layui-nav-item">
             <a href="javascript:;"><i class="layui-icon layui-icon-link"></i> 友情链接</a>
             <dl class="layui-nav-child layui-bg-green">
-              <dd><a href="http://139.9.154.99/">蜂翼动画 FY</a></dd>
+              <dd><a href="http://139.9.154.99/" target="_blank">蜂翼动画 FY</a></dd>
             </dl>
           </li>
         </ul>
@@ -88,9 +81,13 @@
       <div class="layui-row" style="height: 10px"></div>
       <div class="layui-carousel" id="home_carousel">
         <div carousel-item>
-          <div><img src="static/image/carousel_3.jpg" style="width: 100%; height: auto;"/></div>
-          <div><img src="static/image/carousel_2.jpg" style="width: 100%; height: auto;"/></div>
           <div><img src="static/image/carousel_1.jpg" style="width: 100%; height: auto;"/></div>
+          <div><img src="static/image/carousel_2.jpg" style="width: 100%; height: auto;"/></div>
+          <div><img src="static/image/carousel_3.jpg" style="width: 100%; height: auto;"/></div>
+          <div><img src="static/image/carousel_4.jpg" style="width: 100%; height: auto;"/></div>
+          <div><img src="static/image/carousel_5.jpg" style="width: 100%; height: auto;"/></div>
+          <div><img src="static/image/carousel_6.jpg" style="width: 100%; height: auto;"/></div>
+          <div><img src="static/image/carousel_7.jpg" style="width: 100%; height: auto;"/></div>
         </div>
       </div>
       <div class="layui-container layui-font-black" align="center">
@@ -216,11 +213,15 @@
               </div>
               <div class="layui-row" style="height: 20px"></div>
               <div class="layui-row">
-                <h5><a href="" class="layui-font-gray">图数据库 HugeGraph</a></h5>
+                <h5><a href="https://hugegraph.apache.org/cn/" target="_blank" class="layui-font-gray">图数据库 HugeGraph</a></h5>
               </div>
               <div class="layui-row" style="height: 20px"></div>
               <div class="layui-row">
-                <h5><a href="" class="layui-font-gray">前端UI框架 Layui</a></h5>
+                <h5><a href="https://spring.io/" target="_blank" class="layui-font-gray">后端框架 Spring</a></h5>
+              </div>
+              <div class="layui-row" style="height: 20px"></div>
+              <div class="layui-row">
+                <h5><a href="http://layui.org.cn/index.html" target="_blank" class="layui-font-gray">前端UI框架 Layui</a></h5>
               </div>
             </div>
             <div class="layui-col-md3">
