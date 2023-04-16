@@ -23,7 +23,7 @@
         </includes>
       </resource>
     </resources>
-    <finalName>YoE-logistics-Server-Country-0.1.0</finalName>
+    <finalName>YoE</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -6,38 +7,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="author" content="Yu Weiyi 于魏祎 yu_weiyi@outlook.com">
 
-        <!-- Bootstrap -->
-        <%--        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">--%>
-        <%--        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/mhDoLbDldZc3qpsJHpLogda//BVZbgYuw6kof4u2FrCedxOtgRZDTHgHUhOCVim" crossorigin="anonymous"></script>--%>
-
         <!-- Layui -->
         <link href="/layui/css/layui.css" rel="stylesheet">
         <script src="/layui/layui.js"></script>
-        <%--        <!-- CDN引入 -->--%>
-        <%--        <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" />--%>
-        <%--        <script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>--%>
-
         <!-- jQuery -->
         <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-        <!-- JsBarcode 用于生成条码 -->
-        <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-
         <title>邮易 YoE 仓储物流 员工辅助寄件</title>
+        <link rel="icon" href="/static/image/pure_logo_YoE.png">
 
-        <script type="text/javascript" charset="UTF-8" src="static/js/layui.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="/static/js/layui.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/css/body.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/heimu.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/print.css">
 
-        <style>
-            html,body{
-                height: 100%;
-                width: 100%;
-                margin:0;
-                padding:0;
-            }
-        </style>
-        <style type="text/css">
-            @import url("/static/css/print.css") print;
-        </style>
+        <script>
+            $(function(){
+                $(".header").load("/static/component/header.html");
+                $(".footer").load("/static/component/footer.html");
+            });
+        </script>
+
+        <!-- print -->
         <script language="javascript">
             function remove_ie_header_and_footer() {
                 let HKEY_Root, HKEY_Path, HKEY_Key;
@@ -74,64 +65,200 @@
                 }
             }
         </script>
+
+        <!-- layui -->
+        <script type="text/javascript">
+            layui.use(function () {
+                var upload = layui.upload,
+                    element = layui.element,
+                    form = layui.form,
+                    layer = layui.layer;
+
+                form.on('select(consigner_province)',function (data) {
+                    var province_selected = data.value;
+                    $('#consigner_city').empty();
+                    switch (province_selected) {
+                        case "A省":
+                            $('#consigner_city').append("<option value='A1市'>A1市</option>");
+                            break;
+                        case "B省":
+                            $('#consigner_city').append("<option value='B1市'>B1市</option>");
+                            break;
+                        case "C省":
+                            $('#consigner_city').append("<option value='C1市'>C1市</option>");
+                            $('#consigner_city').append("<option value='C2市'>C2市</option>");
+                            $('#consigner_city').append("<option value='C3市'>C3市</option>");
+                            $('#consigner_city').append("<option value='C4市'>C4市</option>");
+                            break;
+                        case "D省":
+                            $('#consigner_city').append("<option value='D1市'>D1市</option>");
+                            $('#consigner_city').append("<option value='D2市'>D2市</option>");
+                            $('#consigner_city').append("<option value='D3市'>D3市</option>");
+                            $('#consigner_city').append("<option value='D4市'>D4市</option>");
+                            break;
+                        case "E省":
+                            $('#consigner_city').append("<option value='E1市'>E1市</option>");
+                            $('#consigner_city').append("<option value='E2市'>E2市</option>");
+                            $('#consigner_city').append("<option value='E3市'>E3市</option>");
+                            break;
+                        case "F省":
+                            $('#consigner_city').append("<option value='F1市'>F1市</option>");
+                            $('#consigner_city').append("<option value='F2市'>F2市</option>");
+                            $('#consigner_city').append("<option value='F3市'>F3市</option>");
+                            $('#consigner_city').append("<option value='F4市'>F4市</option>");
+                            break;
+                        case "G省":
+                            $('#consigner_city').append("<option value='G1市'>G1市</option>");
+                            $('#consigner_city').append("<option value='G2市'>G2市</option>");
+                            break;
+                        case "H省":
+                            $('#consigner_city').append("<option value='H1市'>H1市</option>");
+                            break;
+                        case "I省":
+                            $('#consigner_city').append("<option value='I1市'>I1市</option>");
+                            $('#consigner_city').append("<option value='I2市'>I2市</option>");
+                            $('#consigner_city').append("<option value='I3市'>I3市</option>");
+                            $('#consigner_city').append("<option value='I4市'>I4市</option>");
+                            break;
+                        case "J省":
+                            $('#consigner_city').append("<option value='J1市'>J1市</option>");
+                            $('#consigner_city').append("<option value='J2市'>J2市</option>");
+                            $('#consigner_city').append("<option value='J3市'>J3市</option>");
+                            $('#consigner_city').append("<option value='J4市'>J4市</option>");
+                            break;
+                        case "K省":
+                            $('#consigner_city').append("<option value='K1市'>K1市</option>");
+                            break;
+                        case "L省":
+                            $('#consigner_city').append("<option value='L1市'>L1市</option>");
+                            break;
+                    }
+                    form.render('select');
+                });
+
+                form.on('select(consignee_province)',function (data) {
+                    var province_selected = data.value;
+                    $('#consignee_city').empty();
+                    switch (province_selected) {
+                        case "A省":
+                            $('#consignee_city').append("<option value='A1市'>A1市</option>");
+                            break;
+                        case "B省":
+                            $('#consignee_city').append("<option value='B1市'>B1市</option>");
+                            break;
+                        case "C省":
+                            $('#consignee_city').append("<option value='C1市'>C1市</option>");
+                            $('#consignee_city').append("<option value='C2市'>C2市</option>");
+                            $('#consignee_city').append("<option value='C3市'>C3市</option>");
+                            $('#consignee_city').append("<option value='C4市'>C4市</option>");
+                            break;
+                        case "D省":
+                            $('#consignee_city').append("<option value='D1市'>D1市</option>");
+                            $('#consignee_city').append("<option value='D2市'>D2市</option>");
+                            $('#consignee_city').append("<option value='D3市'>D3市</option>");
+                            $('#consignee_city').append("<option value='D4市'>D4市</option>");
+                            break;
+                        case "E省":
+                            $('#consignee_city').append("<option value='E1市'>E1市</option>");
+                            $('#consignee_city').append("<option value='E2市'>E2市</option>");
+                            $('#consignee_city').append("<option value='E3市'>E3市</option>");
+                            break;
+                        case "F省":
+                            $('#consignee_city').append("<option value='F1市'>F1市</option>");
+                            $('#consignee_city').append("<option value='F2市'>F2市</option>");
+                            $('#consignee_city').append("<option value='F3市'>F3市</option>");
+                            $('#consignee_city').append("<option value='F4市'>F4市</option>");
+                            break;
+                        case "G省":
+                            $('#consignee_city').append("<option value='G1市'>G1市</option>");
+                            $('#consignee_city').append("<option value='G2市'>G2市</option>");
+                            break;
+                        case "H省":
+                            $('#consignee_city').append("<option value='H1市'>H1市</option>");
+                            break;
+                        case "I省":
+                            $('#consignee_city').append("<option value='I1市'>I1市</option>");
+                            $('#consignee_city').append("<option value='I2市'>I2市</option>");
+                            $('#consignee_city').append("<option value='I3市'>I3市</option>");
+                            $('#consignee_city').append("<option value='I4市'>I4市</option>");
+                            break;
+                        case "J省":
+                            $('#consignee_city').append("<option value='J1市'>J1市</option>");
+                            $('#consignee_city').append("<option value='J2市'>J2市</option>");
+                            $('#consignee_city').append("<option value='J3市'>J3市</option>");
+                            $('#consignee_city').append("<option value='J4市'>J4市</option>");
+                            break;
+                        case "K省":
+                            $('#consignee_city').append("<option value='K1市'>K1市</option>");
+                            break;
+                        case "L省":
+                            $('#consignee_city').append("<option value='L1市'>L1市</option>");
+                            break;
+                    }
+                    form.render('select');
+                });
+
+                form.on('submit(place_order_employee_assistance_form_btn)', function(data){
+                    var param = data.field;//定义临时变量获取表单提交过来的数据，非json格式
+                    var form_data = JSON.stringify(param);
+                    $.ajax({
+                        type: 'POST',
+                        // async: false,//改为同步请求
+                        url: "order/place_order",
+                        dataType: 'text',//预期服务器返回的数据类型
+                        data: form_data,//表格数据序列化
+                        contentType: "application/json; charset=utf-8",
+                        success: function(res){//res为响应体,function为回调函数
+                            // layer.alert('提交成功', {icon: 1});
+                            var return_data = JSON.parse(res + '');
+                            document.getElementById('place_order_employee_assistance_form').style.display = 'none';
+                            document.getElementById('print_block').style.display = 'block';
+                            document.getElementById('place_order_employee_assistance_progress_bar').style.display = 'block';
+
+                            document.getElementById('print_consigner_name').innerHTML = document.getElementsByName('consigner_name').item(0).value;
+                            document.getElementById('print_consigner_phone').innerHTML = document.getElementsByName('consigner_phone').item(0).value;
+                            document.getElementById('print_consigner_address').innerHTML = document.getElementsByName('consigner_province').item(0).value + document.getElementsByName('consigner_city').item(0).value + document.getElementsByName('consigner_address').item(0).value;
+                            document.getElementById('print_consignee_name').innerHTML = document.getElementsByName('consignee_name').item(0).value;
+                            document.getElementById('print_consignee_phone').innerHTML = document.getElementsByName('consignee_phone').item(0).value;
+                            document.getElementById('print_consignee_address').innerHTML = document.getElementsByName('consignee_province').item(0).value + document.getElementsByName('consignee_city').item(0).value + document.getElementsByName('consignee_address').item(0).value;
+                            if (document.getElementsByName('order_type').item(0).value == 0) {
+                                document.getElementById('print_order_type').innerHTML = '现付' + return_data.fee + '元';
+                            }
+                            else {
+                                document.getElementById('print_order_type').innerHTML = '到付' + return_data.fee + '元';
+                            }
+                            document.getElementById('print_order_id').innerHTML = return_data.order_id;
+                            document.getElementById('print_cargo_info').innerHTML = document.getElementsByName('cargo_info').item(0).value;
+
+                            $("#barcode_1").JsBarcode(return_data.order_id, {
+                                format: "CODE128",
+                                lineColor: "#0aa",
+                                width: 2.5,
+                                height: 20,
+                                displayValue: false
+                            });
+                            $("#barcode_2").JsBarcode(return_data.order_id, {
+                                format: "CODE128",
+                                lineColor: "#0aa",
+                                width: 2,
+                                height: 25,
+                                displayValue: false
+                            });
+
+                            element.progress('place_order_employee_assistance_progress_bar', '100%')
+                            element.render('progress', 'place_order_employee_assistance_progress_bar')
+                        },
+                        error: function(res){
+                            layer.alert('提交失败', {icon: 5});
+                        }
+                    });
+                    return false; //阻止表单跳转
+                });
+            });
+        </script>
     </head>
     <body>
-        <div class="layui-header">
-            <div class="layui-row">
-                <div class="layui-col-md1 layui-col-md-offset1">
-                    <img src="static/image/logo_YoE.png" width="60px" height="30px"/>
-                </div>
-                <div class="layui-col-md2 layui-font-20">
-                    邮易 YoE 仓储物流
-                </div>
-            </div>
-            <div class="layui-row">
-                <ul class="layui-nav layui-bg-green" lay-filter="">
-                    <li class="layui-nav-item layui-this">
-                        <a href="index.jsp"><i class="layui-icon layui-icon-home"></i> 首页</a>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-form"></i> 业务办理</a>
-                        <dl class="layui-nav-child layui-bg-green">
-                            <dd><a href="">我要寄件</a></dd>
-                            <dd><a href="">我要查件</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-user"></i> 国内物流服务</a>
-                        <dl class="layui-nav-child layui-bg-green">
-                            <dd><a href="">国内特快速递</a></dd>
-                            <dd><a href="">国内大宗运输<span class="layui-badge layui-bg-orange">X</span></a></dd>
-                            <dd><a href="">国内冷链物流</a></dd>
-                            <dd><a href="">国内异地仓储<span class="layui-badge layui-bg-orange">X</span></a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-website"></i> 国际物流服务</a>
-                        <dl class="layui-nav-child layui-bg-green">
-                            <dd><a href="">国际空运邮寄<span class="layui-badge layui-bg-orange">X</span></a></dd>
-                            <dd><a href="">国际大宗水运<span class="layui-badge layui-bg-orange">X</span></a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-fonts-code"></i> 科技赋能</a>
-                        <dl class="layui-nav-child layui-bg-green">
-                            <dd><a href="">图数据库 Hugegraph</a></dd>
-                            <dd><a href="">前端UI框架 Layui</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href=""><i class="layui-icon layui-icon-about"></i> 关于邮易</a>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="layui-icon layui-icon-link"></i> 友情链接</a>
-                        <dl class="layui-nav-child layui-bg-green">
-                            <dd><a href="">蜂翼 FENGYI</a></dd>
-                        </dl>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <div class="header"></div>
         <div class="layui-body" style="color: #dddddd; left: 0px;">
             <div class="layui-container" align="center">
                 <div class="layui-row" style="height: 20px"></div>
@@ -139,7 +266,7 @@
                 <div class="layui-row" style="width: 50%">
                     <h2 class="layui-bg-blue">员工辅助寄件</h2>
                 </div>
-                <div class="layui-row" style="height: 20px"></div>
+                <div class="layui-row" style="height: 60px"></div>
                 <div class="layui-container">
                     <div class="layui-progress layui-progress-big" lay-showPercent="true" lay-fliter="place_order_employee_assistance_progress_bar">
                         <div class="layui-progress-bar layui-bg-green" style="width: 80%; display: none" lay-percent="100%" id="place_order_employee_assistance_progress_bar"></div>
@@ -436,7 +563,7 @@
                         </div>
 
                         <div id="net" class="left">
-                            <span class="deviation">详询官网 http://122.9.161.251:8080/YoE/ </span>
+                            <span class="deviation">详询官网 http://www.YoE.com/ </span>
                         </div>
 
                         <div id="QRCode" class="right">
@@ -446,302 +573,12 @@
                     <!--endPrint-->
                     <input name="print" class=" no-print layui-btn layui-btn-radius" type="button" id="bt" value="打印" />
                 </div>
+                <div class="layui-row" style="height: 20px"></div>
+                <hr class="layui-border-green">
+                <div class="layui-row" style="height: 60px"></div>
             </div>
             <div class="layui-row" style="height: 10px"></div>
         </div>
-        <div class="layui-footer layui-bg-green">
-            <div class="layui-row layui-bg-orange" style="height: 5px"></div>
-            <div class="layui-container" align="center">
-                <hr class="layui-border-black">
-                <div class="layui-row">
-                    <div class="layui-col-md8">
-                        <div class="layui-col-md3">
-                            <div class="layui-row">
-                                <h4><b>产品服务</b></h4>
-                            </div>
-                            <div class="layui-row" style="height: 20px"></div>
-                            <div class="layui-row">
-                                <h5><a href="" class="layui-font-gray">常规寄件</a></h5>
-                            </div>
-                            <div class="layui-row" style="height: 20px"></div>
-                            <div class="layui-row">
-                                <h5><a href="" class="layui-font-gray">订单查件</a></h5>
-                            </div>
-                        </div>
-                        <div class="layui-col-md3">
-                            <div class="layui-row">
-                                <h4><b>服务支持</b></h4>
-                            </div>
-                            <div class="layui-row" style="height: 20px"></div>
-                            <div class="layui-row">
-                                <h5><a href="" class="layui-font-gray">费用公示</a></h5>
-                            </div>
-                            <div class="layui-row" style="height: 20px"></div>
-                            <div class="layui-row">
-                                <h5><a href="" class="layui-font-gray">限寄规则</a></h5>
-                            </div>
-                        </div>
-                        <div class="layui-col-md3">
-                            <div class="layui-row">
-                                <h4><b>科技赋能</b></h4>
-                            </div>
-                            <div class="layui-row" style="height: 20px"></div>
-                            <div class="layui-row">
-                                <h5><a href="" class="layui-font-gray">图数据库 HugeGraph</a></h5>
-                            </div>
-                            <div class="layui-row" style="height: 20px"></div>
-                            <div class="layui-row">
-                                <h5><a href="" class="layui-font-gray">前端UI框架 Layui</a></h5>
-                            </div>
-                        </div>
-                        <div class="layui-col-md3">
-                            <div class="layui-row">
-                                <h4><b>关于邮易</b></h4>
-                            </div>
-                            <div class="layui-row" style="height: 20px"></div>
-                            <div class="layui-row">
-                                <h5><a href="" class="layui-font-gray">项目简介</a></h5>
-                            </div>
-                            <div class="layui-row" style="height: 20px"></div>
-                            <div class="layui-row">
-                                <h5><a href="" class="layui-font-gray">项目作者</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md4">
-                        <div class="layui-row">
-                            <h4><b>联系方式</b></h4>
-                        </div>
-                        <div class="layui-row" style="height: 20px"></div>
-                        <div class="layui-row">
-                            <button type="button" class="layui-btn layui-btn-radius layui-btn-normal layui-bg-gray"
-                                    id="btn_tip_email" onmouseenter="btn_show_tip_email()">
-                                <i class="layui-icon layui-icon-email"></i>
-                            </button>
-                            <button type="button" class="layui-btn layui-btn-radius layui-btn-normal layui-bg-gray"
-                                    id="btn_tip_qq" onmouseenter="btn_show_tip_qq()">
-                                <i class="layui-icon layui-icon-login-qq"></i>
-                            </button>
-                            <button type="button" class="layui-btn layui-btn-radius layui-btn-normal layui-bg-gray"
-                                    id="btn_tip_wechat" onmouseenter="btn_show_tip_wechat()">
-                                <i class="layui-icon layui-icon-login-wechat"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <hr class="layui-border-black">
-                <div class="layui-row">
-                    <div class="layui-col-md3">
-                        <b4><b>友情链接：</b></b4>
-                    </div>
-                    <div class="layui-col-md2">
-                        <h5><a href="http://10.16.63.192:8000/" class="layui-font-gray">恒达科技</a></h5>
-                    </div>
-                    <div class="layui-col-md2">
-                        <h5><a href="" class="layui-font-gray">蜂翼 FENGYI</a></h5>
-                    </div>
-                </div>
-                <hr class="layui-border-black">
-                <div class="layui-row" style="height: 20px"></div>
-                <div class="layui-row">
-                    ©2023 Yu Weiyi. All Rights Reserved.
-                </div>
-                <div class="layui-row" style="height: 50px"></div>
-            </div>
-        </div>
-        <ul class="layui-fixbar">
-            <li class="layui-icon layui-fixbar-top" lay-type="top" style="display: list-item;">
-                <a href="javascript:scroll(0,0)"><i class="layui-icon-top"></i></a>
-            </li>
-        </ul>
+        <div class="footer"></div>
     </body>
-    <script type="text/javascript">
-        layui.use(function () {
-            var upload = layui.upload,
-                element = layui.element,
-                form = layui.form,
-                layer = layui.layer;
-
-            form.on('select(consigner_province)',function (data) {
-                var province_selected = data.value;
-                $('#consigner_city').empty();
-                switch (province_selected) {
-                    case "A省":
-                        $('#consigner_city').append("<option value='A1市'>A1市</option>");
-                        break;
-                    case "B省":
-                        $('#consigner_city').append("<option value='B1市'>B1市</option>");
-                        break;
-                    case "C省":
-                        $('#consigner_city').append("<option value='C1市'>C1市</option>");
-                        $('#consigner_city').append("<option value='C2市'>C2市</option>");
-                        $('#consigner_city').append("<option value='C3市'>C3市</option>");
-                        $('#consigner_city').append("<option value='C4市'>C4市</option>");
-                        break;
-                    case "D省":
-                        $('#consigner_city').append("<option value='D1市'>D1市</option>");
-                        $('#consigner_city').append("<option value='D2市'>D2市</option>");
-                        $('#consigner_city').append("<option value='D3市'>D3市</option>");
-                        $('#consigner_city').append("<option value='D4市'>D4市</option>");
-                        break;
-                    case "E省":
-                        $('#consigner_city').append("<option value='E1市'>E1市</option>");
-                        $('#consigner_city').append("<option value='E2市'>E2市</option>");
-                        $('#consigner_city').append("<option value='E3市'>E3市</option>");
-                        break;
-                    case "F省":
-                        $('#consigner_city').append("<option value='F1市'>F1市</option>");
-                        $('#consigner_city').append("<option value='F2市'>F2市</option>");
-                        $('#consigner_city').append("<option value='F3市'>F3市</option>");
-                        $('#consigner_city').append("<option value='F4市'>F4市</option>");
-                        break;
-                    case "G省":
-                        $('#consigner_city').append("<option value='G1市'>G1市</option>");
-                        $('#consigner_city').append("<option value='G2市'>G2市</option>");
-                        break;
-                    case "H省":
-                        $('#consigner_city').append("<option value='H1市'>H1市</option>");
-                        break;
-                    case "I省":
-                        $('#consigner_city').append("<option value='I1市'>I1市</option>");
-                        $('#consigner_city').append("<option value='I2市'>I2市</option>");
-                        $('#consigner_city').append("<option value='I3市'>I3市</option>");
-                        $('#consigner_city').append("<option value='I4市'>I4市</option>");
-                        break;
-                    case "J省":
-                        $('#consigner_city').append("<option value='J1市'>J1市</option>");
-                        $('#consigner_city').append("<option value='J2市'>J2市</option>");
-                        $('#consigner_city').append("<option value='J3市'>J3市</option>");
-                        $('#consigner_city').append("<option value='J4市'>J4市</option>");
-                        break;
-                    case "K省":
-                        $('#consigner_city').append("<option value='K1市'>K1市</option>");
-                        break;
-                    case "L省":
-                        $('#consigner_city').append("<option value='L1市'>L1市</option>");
-                        break;
-                }
-                form.render('select');
-            });
-
-            form.on('select(consignee_province)',function (data) {
-                var province_selected = data.value;
-                $('#consignee_city').empty();
-                switch (province_selected) {
-                    case "A省":
-                        $('#consignee_city').append("<option value='A1市'>A1市</option>");
-                        break;
-                    case "B省":
-                        $('#consignee_city').append("<option value='B1市'>B1市</option>");
-                        break;
-                    case "C省":
-                        $('#consignee_city').append("<option value='C1市'>C1市</option>");
-                        $('#consignee_city').append("<option value='C2市'>C2市</option>");
-                        $('#consignee_city').append("<option value='C3市'>C3市</option>");
-                        $('#consignee_city').append("<option value='C4市'>C4市</option>");
-                        break;
-                    case "D省":
-                        $('#consignee_city').append("<option value='D1市'>D1市</option>");
-                        $('#consignee_city').append("<option value='D2市'>D2市</option>");
-                        $('#consignee_city').append("<option value='D3市'>D3市</option>");
-                        $('#consignee_city').append("<option value='D4市'>D4市</option>");
-                        break;
-                    case "E省":
-                        $('#consignee_city').append("<option value='E1市'>E1市</option>");
-                        $('#consignee_city').append("<option value='E2市'>E2市</option>");
-                        $('#consignee_city').append("<option value='E3市'>E3市</option>");
-                        break;
-                    case "F省":
-                        $('#consignee_city').append("<option value='F1市'>F1市</option>");
-                        $('#consignee_city').append("<option value='F2市'>F2市</option>");
-                        $('#consignee_city').append("<option value='F3市'>F3市</option>");
-                        $('#consignee_city').append("<option value='F4市'>F4市</option>");
-                        break;
-                    case "G省":
-                        $('#consignee_city').append("<option value='G1市'>G1市</option>");
-                        $('#consignee_city').append("<option value='G2市'>G2市</option>");
-                        break;
-                    case "H省":
-                        $('#consignee_city').append("<option value='H1市'>H1市</option>");
-                        break;
-                    case "I省":
-                        $('#consignee_city').append("<option value='I1市'>I1市</option>");
-                        $('#consignee_city').append("<option value='I2市'>I2市</option>");
-                        $('#consignee_city').append("<option value='I3市'>I3市</option>");
-                        $('#consignee_city').append("<option value='I4市'>I4市</option>");
-                        break;
-                    case "J省":
-                        $('#consignee_city').append("<option value='J1市'>J1市</option>");
-                        $('#consignee_city').append("<option value='J2市'>J2市</option>");
-                        $('#consignee_city').append("<option value='J3市'>J3市</option>");
-                        $('#consignee_city').append("<option value='J4市'>J4市</option>");
-                        break;
-                    case "K省":
-                        $('#consignee_city').append("<option value='K1市'>K1市</option>");
-                        break;
-                    case "L省":
-                        $('#consignee_city').append("<option value='L1市'>L1市</option>");
-                        break;
-                }
-                form.render('select');
-            });
-
-            form.on('submit(place_order_employee_assistance_form_btn)', function(data){
-                var param = data.field;//定义临时变量获取表单提交过来的数据，非json格式
-                var form_data = JSON.stringify(param);
-                $.ajax({
-                    type: 'POST',
-                    // async: false,//改为同步请求
-                    url: "order/place_order",
-                    dataType: 'text',//预期服务器返回的数据类型
-                    data: form_data,//表格数据序列化
-                    contentType: "application/json; charset=utf-8",
-                    success: function(res){//res为响应体,function为回调函数
-                        layer.alert('提交成功', {icon: 1});
-                        var return_data = JSON.parse(res + '');
-                        document.getElementById('place_order_employee_assistance_form').style.display = 'none';
-                        document.getElementById('print_block').style.display = 'block';
-                        document.getElementById('place_order_employee_assistance_progress_bar').style.display = 'block';
-
-                        document.getElementById('print_consigner_name').innerHTML = document.getElementsByName('consigner_name').item(0).value;
-                        document.getElementById('print_consigner_phone').innerHTML = document.getElementsByName('consigner_phone').item(0).value;
-                        document.getElementById('print_consigner_address').innerHTML = document.getElementsByName('consigner_province').item(0).value + document.getElementsByName('consigner_city').item(0).value + document.getElementsByName('consigner_address').item(0).value;
-                        document.getElementById('print_consignee_name').innerHTML = document.getElementsByName('consignee_name').item(0).value;
-                        document.getElementById('print_consignee_phone').innerHTML = document.getElementsByName('consignee_phone').item(0).value;
-                        document.getElementById('print_consignee_address').innerHTML = document.getElementsByName('consignee_province').item(0).value + document.getElementsByName('consignee_city').item(0).value + document.getElementsByName('consignee_address').item(0).value;
-                        if (document.getElementsByName('order_type').item(0).value == 0) {
-                            document.getElementById('print_order_type').innerHTML = '现付' + return_data.fee + '元';
-                        }
-                        else {
-                            document.getElementById('print_order_type').innerHTML = '到付' + return_data.fee + '元';
-                        }
-                        document.getElementById('print_order_id').innerHTML = return_data.order_id;
-                        document.getElementById('print_cargo_info').innerHTML = document.getElementsByName('cargo_info').item(0).value;
-
-                        $("#barcode_1").JsBarcode(return_data.order_id, {
-                            format: "CODE128",
-                            lineColor: "#0aa",
-                            width: 2.5,
-                            height: 20,
-                            displayValue: false
-                        });
-                        $("#barcode_2").JsBarcode(return_data.order_id, {
-                            format: "CODE128",
-                            lineColor: "#0aa",
-                            width: 2,
-                            height: 25,
-                            displayValue: false
-                        });
-
-                        element.progress('place_order_employee_assistance_progress_bar', '100%')
-                        element.render('progress', 'place_order_employee_assistance_progress_bar')
-                    },
-                    error: function(res){
-                        layer.alert('提交失败', {icon: 5});
-                    }
-                });
-                return false; //阻止表单跳转
-            });
-        });
-    </script>
 </html>

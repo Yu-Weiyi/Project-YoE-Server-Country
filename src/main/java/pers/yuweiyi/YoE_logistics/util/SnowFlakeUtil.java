@@ -6,10 +6,6 @@ import cn.hutool.core.lang.Singleton;
  * projectName: YoE-logistics-Server-Country <br/>
  * className: SnowFlakeUtil <br/>
  * description: 雪花算法工具类。 <br/>
- *
- * @author yu_weiyi 于魏祎 <a href="mailto:yu_weiyi@outlook.com" >yu_weiyi@outlook.com</a> <br/>
- * @version 0.1 <br/>
- * @since 3/22/2023 2:13 PM <br/>
  */
 public class SnowFlakeUtil {
     private static final long START_STMP = 1420041600000L;

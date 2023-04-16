@@ -22,12 +22,12 @@
     <!-- 视图控制器 -->
 <!--    <mvc:view-controller path="/" view-name="index"/>-->
     <mvc:view-controller path="not_implemented" view-name="not_implemented"/>
-    <mvc:view-controller path="about_author" view-name="about_author"/>
-    <mvc:view-controller path="about_project" view-name="about_project"/>
-    <mvc:view-controller path="limit_rule" view-name="limit_rule"/>
-    <mvc:view-controller path="fee_rule" view-name="fee_rule"/>
-    <mvc:view-controller path="place_order" view-name="place_order"/>
-    <mvc:view-controller path="place_order_employee_assistance" view-name="place_order_employee_assistance"/>
+    <mvc:view-controller path="about_author" view-name="author_Yu_Weiyi"/>
+    <mvc:view-controller path="about_project" view-name="project_YoE"/>
+    <mvc:view-controller path="limit_rule" view-name="limit"/>
+    <mvc:view-controller path="fee_rule" view-name="fee"/>
+    <mvc:view-controller path="place_order" view-name="place"/>
+    <mvc:view-controller path="place_order_employee_assistance" view-name="place_with_employee"/>
 
     <!--过滤静态资源:导入layui时-->
     <mvc:resources mapping="/layui/**" location="layui/"/>

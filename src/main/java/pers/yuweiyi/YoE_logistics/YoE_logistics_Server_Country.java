@@ -11,21 +11,13 @@ import pers.yuweiyi.YoE_logistics.util.GraphDatabaseUtil;
  * description: 程序主入口。 <br/>
  *
  * @author yu_weiyi 于魏祎 <a href="mailto:yu_weiyi@outlook.com" >yu_weiyi@outlook.com</a> <br/>
- * @version 0.1 <br/>
+ * @version 1.0 <br/>
  * @since 1/23/2023 3:13 PM <br/>
  */
 @Slf4j
 public class YoE_logistics_Server_Country {
     public static void main(String[] args){
         log.info("YoE-logistics-Server-Country: Program start");
-
-//        //Spring context
-//        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-//
-//        //Database
-//        GraphDatabaseUtil graphDatabaseUtil = (GraphDatabaseUtil) context.getBean("graphDatabaseUtil");
-////        graphDatabaseUtil.openConnection();
-
 
         //初始化（仅运行一次）
 //        GraphDatabaseUtil.initializeData();

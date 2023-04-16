@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * description: 页面控制器。 <br/>
  *
  * @author yu_weiyi 于魏祎 <a href="mailto:yu_weiyi@outlook.com" >yu_weiyi@outlook.com</a> <br/>
- * @version 0.1 <br/>
+ * @version 1.0 <br/>
  * @since 3/19/2023 6:36 PM <br/>
  */
 @Controller
@@ -20,59 +20,63 @@ public class PageController {
         return "index";
     }
 
-//    // 页面公共部分
-//    @RequestMapping("/component/header")
-//    public String component_header() {return "";}
-//
-//    @RequestMapping("/component/footer")
-//    public String component_footer() {return "component/footer";}
-//
-//    @RequestMapping("/component/fixbar")
-//    public String component_fixbar() {return "component/fixbar";}
-
-    @RequestMapping("/not_implemented")
-    public String not_implemented() {
-        return "not_implemented";
-    }
-
-    @RequestMapping("/about_author")
+    @RequestMapping("/about/author_Yu_Weiyi")
     public String about_author() {
-        return "about_author";
+        return "about/author_Yu_Weiyi";
     }
 
-    @RequestMapping("/about_project")
+    @RequestMapping("/about/project_YoE")
     public String about_project() {
-        return "about_project";
+        return "about/project_YoE";
     }
 
-    @RequestMapping("/limit_rule")
+    @RequestMapping("/rule/limit")
     public String limit_rule() {
-        return "limit_rule";
+        return "rule/limit";
     }
 
-    @RequestMapping("/fee_rule")
+    @RequestMapping("/rule/fee")
     public String fee_rule() {
-        return "fee_rule";
+        return "rule/fee";
     }
 
-    @RequestMapping("/place_order")
+    @RequestMapping("/order/place")
     public String place_order() {
-        return "place_order";
+        return "order/place";
     }
 
-    @RequestMapping("/place_order_employee_assistance")
+    @RequestMapping("/order/place_with_employee")
     public String place_order_employee_assistance() {
-        return "place_order_employee_assistance";
+        return "order/place_with_employee";
     }
 
-    @RequestMapping("/search_order")
+    @RequestMapping("/order/search")
     public String search_order() {
-        return "search_order";
+        return "order/search";
     }
 
-    // TEST
-    @RequestMapping("/test")
-    public String test() {
-        return "test";
+    @RequestMapping("/domestic/speedpost")
+    public String domestic_speedpost() {
+        return "domestic/speedpost";
+    }
+
+    @RequestMapping("/domestic/cold_chain_logistics")
+    public String domestic_cold_chain_logistics() {
+        return "domestic/cold_chain_logistics";
+    }
+
+    @RequestMapping("/domestic/offsite_warehousing")
+    public String domestic_offsite_warehousing() {
+        return "domestic/offsite_warehousing";
+    }
+
+    @RequestMapping("/international/air_mailing")
+    public String international_air_mailing() {
+        return "international/air_mailing";
+    }
+
+    @RequestMapping("/international/bulk_shipping")
+    public String international_bulk_shipping() {
+        return "international/bulk_shipping";
     }
 }

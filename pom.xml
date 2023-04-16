@@ -4,7 +4,7 @@
 
   <groupId>pers.yuweiyi.YoE_logistics</groupId>
   <artifactId>YoE-logistics-Server-Country</artifactId>
-  <version>0.1.0</version>
+  <version>1.0.0</version>
   <packaging>war</packaging>
 
   <name>YoE-logistics-Server-Country</name>
@@ -143,7 +143,7 @@
   </dependencies>
 
   <build>
-    <finalName>YoE-logistics-Server-Country-0.1.0</finalName><!-- 导出jar的名字 -->
+    <finalName>YoE</finalName><!-- 导出jar的名字 -->
     <resources>
       <resource>
         <directory>src/main/java</directory>

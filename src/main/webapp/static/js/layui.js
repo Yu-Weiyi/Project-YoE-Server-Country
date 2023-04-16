@@ -18,8 +18,8 @@ layui.use(['element', 'carousel', 'layer', 'util', 'table', 'form'], function(){
     util.fixbar({
         top: true,
         css : {
-            right: 50,
-            bottom: 100
+            right: 20,
+            bottom: 50
         },
         bgcolor : '#393D49',
         // bgcolor : '#393D49 !important;display:block;',
