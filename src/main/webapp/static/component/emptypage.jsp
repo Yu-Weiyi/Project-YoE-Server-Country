@@ -18,6 +18,7 @@
 
     <script type="text/javascript" charset="UTF-8" src="/static/js/layui.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/body.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font.css">
     <link rel="stylesheet" type="text/css" href="/static/css/heimu.css">
 
     <script>

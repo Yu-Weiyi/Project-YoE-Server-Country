@@ -18,6 +18,7 @@
 
         <script type="text/javascript" charset="UTF-8" src="/static/js/layui.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/css/body.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/font.css">
         <link rel="stylesheet" type="text/css" href="/static/css/heimu.css">
         <link rel="stylesheet" type="text/css" href="/static/css/print.css">
 
@@ -259,7 +260,7 @@
     </head>
     <body>
         <div class="header"></div>
-        <div class="layui-body" style="color: #dddddd; left: 0px;">
+        <div class="layui-body font-SmileySans" style="color: #dddddd; left: 0px;">
             <div class="layui-container" align="center">
                 <div class="layui-row" style="height: 20px"></div>
                 <hr class="layui-border-green">
@@ -494,7 +495,7 @@
                             <span class="deviation layui-font-14">邮易 YoE 仓储物流 面单</span>
                             <br/>
                             <br/>
-                            <span class="deviation layui-font-14">——源自重邮 易览神州——</span>
+                            <span class="deviation layui-font-14">力争上「邮」「易」览神州</span>
                         </div>
 
                         <div id="sender" class="left">

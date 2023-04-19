@@ -13,11 +13,12 @@
     <!-- jQuery -->
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <title>邮易 YoE 仓储物流 首页</title>
+    <title>邮易 YoE 仓储物流 ——力争上「邮」「易」览神州——</title>
     <link rel="icon" href="/static/image/pure_logo_YoE.png">
 
     <script type="text/javascript" charset="UTF-8" src="/static/js/layui.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/body.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font.css">
     <link rel="stylesheet" type="text/css" href="/static/css/heimu.css">
 
     <script>
@@ -29,17 +30,38 @@
   </head>
   <body>
     <div class="header"></div>
-    <div class="layui-body" style="color: #dddddd; left: 0px;">
-      <div class="layui-row" style="height: 10px"></div>
+    <div class="layui-body font-SmileySans" style="color: #dddddd; left: 0px;">
+      <div class="layui-row" style="height: 30px"></div>
       <div class="layui-carousel" id="home_carousel">
         <div carousel-item>
-          <div><img src="static/image/carousel_1.jpg" style="width: 100%; height: auto;"/></div>
-          <div><img src="static/image/carousel_2.jpg" style="width: 100%; height: auto;"/></div>
-          <div><img src="static/image/carousel_3.jpg" style="width: 100%; height: auto;"/></div>
-          <div><img src="static/image/carousel_4.jpg" style="width: 100%; height: auto;"/></div>
-          <div><img src="static/image/carousel_5.jpg" style="width: 100%; height: auto;"/></div>
-          <div><img src="static/image/carousel_6.jpg" style="width: 100%; height: auto;"/></div>
-          <div><img src="static/image/carousel_7.jpg" style="width: 100%; height: auto;"/></div>
+          <div>
+            <img src="static/image/index/lzsyylsz.png" style="width: 100%; height: auto;"/>
+          </div>
+          <div>
+            <a href="/YoE/domestic/speedpost">
+              <img src="static/image/domestic/speedpost/top.png" style="width: 100%; height: auto;"/>
+            </a>
+          </div>
+          <div>
+            <a href="/YoE/domestic/cold_chain_logistics">
+              <img src="static/image/domestic/cold_chain_logistics/top.png" style="width: 100%; height: auto;"/>
+            </a>
+          </div>
+          <div>
+            <a href="/YoE/domestic/offsite_warehousing">
+              <img src="static/image/domestic/offsite_warehousing/top.png" style="width: 100%; height: auto;"/>
+            </a>
+          </div>
+          <div>
+            <a href="/YoE/international/air_mailing">
+              <img src="static/image/international/air_mailing/top.png" style="width: 100%; height: auto;"/>
+            </a>
+          </div>
+          <div>
+            <a href="/YoE/international/bulk_shipping">
+              <img src="static/image/international/bulk_shipping/top.png" style="width: 100%; height: auto;"/>
+            </a>
+          </div>
         </div>
       </div>
       <div class="layui-container layui-font-black" align="center">
@@ -51,7 +73,7 @@
         <div class="layui-row" style="height: 20px"></div>
         <div class="layui-row">
           <div class="layui-col-md6">
-            <img src="/static/image/country.jpg" style="width: 60%; height: auto;">
+            <img src="/static/image/index/country.jpg" style="width: 60%; height: auto;">
           </div>
           <div class="layui-col-md6>">
             <fieldset class="layui-elem-field layui-font-18" align="left">
@@ -73,7 +95,7 @@
             </fieldset>
           </div>
           <div class="layui-col-md6">
-            <img src="/static/image/international.jpg" style="width: 60%; height: auto;">
+            <img src="/static/image/index/international.jpg" style="width: 60%; height: auto;">
           </div>
         </div>
         <hr class="layui-border-green">

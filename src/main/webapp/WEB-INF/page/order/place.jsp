@@ -18,6 +18,7 @@
 
         <script type="text/javascript" charset="UTF-8" src="/static/js/layui.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/css/body.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/font.css">
         <link rel="stylesheet" type="text/css" href="/static/css/heimu.css">
 
         <script>
@@ -29,7 +30,7 @@
     </head>
     <body>
         <div class="header"></div>
-        <div class="layui-body" style="color: #dddddd; left: 0px;">
+        <div class="layui-body font-SmileySans" style="color: #dddddd; left: 0px;">
             <div class="layui-container" align="center">
                 <div class="layui-row" style="height: 20px"></div>
                 <hr class="layui-border-green">
@@ -48,7 +49,7 @@
                     </div>
                     <div class="layui-col-md6">
                         <button class="layui-btn layui-btn-radius layui=btn-lg">
-                            <a href="place_order_employee_assistance">
+                            <a href="/YoE/order/place_with_employee">
                                 <div class="layui-row">
                                     <i class="layui-icon layui-icon-group"></i>
                                     <div class="layui-font-20">员工辅助寄件</div>
