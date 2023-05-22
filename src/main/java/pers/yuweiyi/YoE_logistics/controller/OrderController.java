@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pers.yuweiyi.YoE_logistics.enums.CargoTypeEnum;
+import pers.yuweiyi.YoE_logistics.enums.OrderTypeEnum;
 import pers.yuweiyi.YoE_logistics.pojo.dto.OrderDTO;
 import pers.yuweiyi.YoE_logistics.pojo.vo.OrderIdVO;
 import pers.yuweiyi.YoE_logistics.pojo.vo.RecordVO;
@@ -35,7 +37,7 @@ public class OrderController {
         OrderControlService orderControlService = (OrderControlServiceImpl) context.getBean("orderControlServiceImpl");
 
         String order_id = SnowFlakeUtil.getDefaultSnowFlakeId().toString();
-        int fee = orderControlService.calcFee(orderDTO.getConsigner_province(), orderDTO.getConsignee_province());
+        int fee = orderControlService.calcFee(orderDTO.getConsigner_province(), orderDTO.getConsignee_province(), CargoTypeEnum.values()[Integer.parseInt(orderDTO.getCargo_type())], OrderTypeEnum.values()[Integer.parseInt(orderDTO.getOrder_type())]);
 
         orderControlService.insertNewOrder(order_id, fee, orderDTO);
 

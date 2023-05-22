@@ -214,6 +214,11 @@ public class GraphDatabaseSchemaDataInitializer {
                 .sourceLabel("archive")
                 .targetLabel("order")
                 .ifNotExist().create();
+        schema.edgeLabel("transportFee")//双向
+                .sourceLabel("province")
+                .targetLabel("province")
+                .properties("fee")
+                .ifNotExist().create();
         log.info("Graph Database {} - Schema Data - Edge: initialized", databaseName);
 
         //创建边属性索引
@@ -231,5 +236,4 @@ public class GraphDatabaseSchemaDataInitializer {
 
         log.info("Graph Database {} Schema Data: All initialized", databaseName);
     }
-
 }

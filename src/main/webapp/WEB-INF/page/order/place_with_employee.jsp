@@ -12,6 +12,8 @@
         <script src="/layui/layui.js"></script>
         <!-- jQuery -->
         <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <!-- JsBarcode -->
+        <script src="https://cdn.bootcdn.net/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.js"></script>
 
         <title>邮易 YoE 仓储物流 员工辅助寄件</title>
         <link rel="icon" href="/static/image/pure_logo_YoE.png">
@@ -24,7 +26,7 @@
 
         <script>
             $(function(){
-                $(".header").load("/static/component/header.html");
+                // $(".header").load("/static/component/header.html");
                 $(".footer").load("/static/component/footer.html");
             });
         </script>
@@ -205,7 +207,7 @@
                     $.ajax({
                         type: 'POST',
                         // async: false,//改为同步请求
-                        url: "order/place_order",
+                        url: "/YoE/order/place_order",
                         dataType: 'text',//预期服务器返回的数据类型
                         data: form_data,//表格数据序列化
                         contentType: "application/json; charset=utf-8",
@@ -259,7 +261,71 @@
         </script>
     </head>
     <body>
-        <div class="header"></div>
+<%--        <div class="header"></div>--%>
+    <div class="layui-header font-LXGWWenKai">
+        <div class="layui-row">
+            <div class="layui-col-md1 layui-col-md-offset1">
+                <img src="/static/image/logo_YoE.png" height="30px"/>
+            </div>
+            <div class="layui-col-md2 layui-col-md-offset1 layui-font-20">
+                邮易 YoE 仓储物流
+            </div>
+            <div class="layui-col-md4 layui-col-md-offset3 layui-font-20">
+                力争上「邮」「易」览神州
+            </div>
+        </div>
+        <div class="layui-row">
+            <ul class="layui-nav layui-bg-green" lay-filter="">
+                <li class="layui-nav-item layui-this">
+                    <a href="/YoE/index.jsp"><i class="layui-icon layui-icon-home"></i> 首页</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-form"></i> 业务办理</a>
+                    <dl class="layui-nav-child layui-bg-green">
+                        <dd><a href="/YoE/order/place">我要寄件</a></dd>
+                        <dd><a href="/YoE/order/search">我要查件</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-user"></i> 国内物流服务</a>
+                    <dl class="layui-nav-child layui-bg-green">
+                        <dd><a href="/YoE/domestic/speedpost">国内特快速递<span class="layui-badge layui-bg-orange">荐</span></a></dd>
+                        <dd><a href="/YoE/domestic/cold_chain_logistics">国内冷链物流</a></dd>
+                        <dd><a href="/YoE/domestic/offsite_warehousing">国内异地仓储</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-website"></i> 国际物流服务</a>
+                    <dl class="layui-nav-child layui-bg-green">
+                        <dd><a href="/YoE/international/air_mailing">国际空运邮寄</a></dd>
+                        <dd><a href="/YoE/international/bulk_shipping">国际大宗水运</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-fonts-code"></i> 科技赋能</a>
+                    <dl class="layui-nav-child layui-bg-green">
+                        <dd><a href="https://hugegraph.apache.org/cn/" target="_blank">图数据库 Hugegraph</a></dd>
+                        <dd><a href="https://spring.io/" target="_blank">后端框架 Spring</a></dd>
+                        <dd><a href="http://layui.org.cn/index.html" target="_blank">前端UI框架 Layui</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-about"></i> 关于</a>
+                    <dl class="layui-nav-child layui-bg-green">
+                        <dd><a href="/YoE/about/project_YoE">关于邮易</a></dd>
+                        <dd><a href="/YoE/about/author_Yu_Weiyi">关于作者</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-link"></i> 友情链接</a>
+                    <dl class="layui-nav-child layui-bg-green">
+                        <dd><a href="http://10.16.63.192:8000/" target="_blank">恒达科技</a></dd>
+                        <dd><a href="http://139.9.154.99/" target="_blank">蜂翼动画 FY</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
         <div class="layui-body font-SmileySans" style="color: #dddddd; left: 0px;">
             <div class="layui-container" align="center">
                 <div class="layui-row" style="height: 20px"></div>
@@ -488,7 +554,7 @@
                     <!--startPrint-->
                     <div id="printPage" style="display: none">
                         <div id="emsType" class="left">
-                            <span><img src="/static/image/logo_YoE.png" width="100px" height="50px"/></span>
+                            <span><img src="/static/image/logo_YoE.png" width="150px" height="auto"/></span>
                         </div>
 
                         <div id="barcode" class="right">

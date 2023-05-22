@@ -123,7 +123,8 @@ public class DataStorageDAOImpl implements DataStorageDAO {
                   "has('order', 'id', '" + orderId + "')." +
                   "out('startRecord')." +
                   "repeat(out()).emit(hasLabel('record'))." +
-                  "path()"
+                  "path()." +
+                  "tail(1)"
         ).execute();
         Path path = GraphDatabaseUtil.changeResultSetToPathSet(resultSet).iterator().next();
 

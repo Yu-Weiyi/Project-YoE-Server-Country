@@ -6,8 +6,12 @@ import org.apache.hugegraph.structure.graph.Vertex;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
+import pers.yuweiyi.YoE_logistics.dao.edge.TransportFeeDAO;
 import pers.yuweiyi.YoE_logistics.dao.graph.DataStorageDAO;
 import pers.yuweiyi.YoE_logistics.dao.graph.impl.DataStorageDAOImpl;
+import pers.yuweiyi.YoE_logistics.dao.vertex.ProvinceDAO;
+import pers.yuweiyi.YoE_logistics.enums.CargoTypeEnum;
+import pers.yuweiyi.YoE_logistics.enums.OrderTypeEnum;
 import pers.yuweiyi.YoE_logistics.enums.RecordTypeEnum;
 import pers.yuweiyi.YoE_logistics.pojo.dto.OrderDTO;
 import pers.yuweiyi.YoE_logistics.pojo.po.vertex.OrderPO;
@@ -50,8 +54,21 @@ public class OrderControlServiceImpl implements OrderControlService {
     }
 
     @Override
-    public int calcFee(String provinceFrom, String porvinceTo) {
-        return 5; //test fee项 计划更改为根据两地与货物类型，订单类型等在服务器端计算得出。
+    public int calcFee(String provinceFrom, String provinceTo, CargoTypeEnum cargoType, OrderTypeEnum orderType) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ProvinceDAO provinceDAO = (ProvinceDAO) context.getBean("provinceDAOImpl");
+        TransportFeeDAO transportFeeDAO = (TransportFeeDAO) context.getBean("transportFeeDAOImpl");
+
+        int sum = 0;// = ( 基础服务费2 + 区间运输费？ + 【可选】冷链物流费2 )【可选】到付*2
+
+        int basic = 2;
+        int transport = (int) transportFeeDAO.select(provinceDAO.select(provinceFrom), provinceDAO.select(provinceTo)).property("fee");
+        int cold = (cargoType == CargoTypeEnum.REFRIGERATED) ? 2 : 0;
+        int pay = (orderType == OrderTypeEnum.CONSIGHEEPAY) ? 2 : 1;
+
+        sum = (basic + transport + cold) * pay;
+
+        return sum;
     }
 
     @Override

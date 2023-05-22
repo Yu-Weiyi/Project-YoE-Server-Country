@@ -1,0 +1,636 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype polyline
+
+interface AdjacentCityDAO << interface >>
+class AdjacentCityDAOImpl {
+  + AdjacentCityDAOImpl(): 
+}
+interface AdjacentProvinceDAO << interface >>
+class AdjacentProvinceDAOImpl {
+  + AdjacentProvinceDAOImpl(): 
+}
+interface AdministerDAO << interface >>
+class AdministerDAOImpl {
+  + AdministerDAOImpl(): 
+}
+interface ArchiveDAO << interface >> {
+  + insert(ArchivePO): Vertex
+  + select(ArchivePO): Vertex
+  + delete(ArchivePO): void
+}
+interface ArchiveDAO << interface >> {
+  + insert(Vertex, Vertex): Edge
+}
+class ArchiveDAOImpl {
+  + insert(Vertex, Vertex): Edge
+  + ArchiveDAOImpl(): 
+}
+class ArchiveDAOImpl {
+  ~ gremlin: GremlinManager
+  + select(ArchivePO): Vertex
+  + insert(ArchivePO): Vertex
+  + delete(ArchivePO): void
+  + ArchiveDAOImpl(): 
+}
+class ArchivePO {
+  - year: int
+  - month: int
+  + getYear(): int
+  + getMonth(): int
+  + setYear(int): void
+  + setMonth(int): void
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+  + VertexSetToArchiveEntity(Set<Vertex>): Set<ArchivePO>
+  # canEqual(Object): boolean
+  + ArchivePO(int, int): 
+  + ArchivePO(Vertex): 
+}
+enum CargoTypeEnum << enumeration >> {
+  + REFRIGERATED: 
+  + COMMON: 
+  + values(): CargoTypeEnum[]
+  + valueOf(String): CargoTypeEnum
+  + CargoTypeEnum(): 
+}
+interface CityDAO << interface >> {
+  + select(String): Vertex
+}
+class CityDAOImpl {
+  ~ gremlin: GremlinManager
+  + select(String): Vertex
+  + CityDAOImpl(): 
+}
+interface CityFromDAO << interface >> {
+  + insert(Vertex, Vertex): Edge
+  + delete(Vertex): void
+}
+class CityFromDAOImpl {
+  ~ gremlin: GremlinManager
+  + insert(Vertex, Vertex): Edge
+  + delete(Vertex): void
+  + CityFromDAOImpl(): 
+}
+interface CityToDAO << interface >> {
+  + insert(Vertex, Vertex): Edge
+  + delete(Vertex): void
+}
+class CityToDAOImpl {
+  ~ gremlin: GremlinManager
+  + insert(Vertex, Vertex): Edge
+  + delete(Vertex): void
+  + CityToDAOImpl(): 
+}
+class ComponentController {
+  + header(): String
+  + component_footer(): String
+  + component_fixbar(): String
+  + ComponentController(): 
+}
+interface DataStorageDAO << interface >> {
+  + insertNewRecordByOrderId(String, RecordPO): Vertex
+  + selectRecordsByOrderId(String): Path
+  + insertNewOrder(UserPO, OrderPO, String, String, String, String): void
+  + insertFirstRecordByOrderId(String, RecordPO): Vertex
+}
+class DataStorageDAOImpl {
+  ~ gremlin: GremlinManager
+  + selectRecordsByOrderId(String): Path
+  + insertFirstRecordByOrderId(String, RecordPO): Vertex
+  + insertNewOrder(UserPO, OrderPO, String, String, String, String): void
+  + insertNewRecordByOrderId(String, RecordPO): Vertex
+  + DataStorageDAOImpl(): 
+}
+interface FinalStationDAO << interface >> {
+  + delete(Vertex): void
+  + insert(Vertex, Vertex): Edge
+}
+class FinalStationDAOImpl {
+  ~ gremlin: GremlinManager
+  + delete(Vertex): void
+  + insert(Vertex, Vertex): Edge
+  + FinalStationDAOImpl(): 
+}
+class GraphDatabaseGraphDataInitializer {
+  - log: Logger
+  + initializeGraphData(): void
+  + GraphDatabaseGraphDataInitializer(): 
+}
+class GraphDatabasePreviousDataCleaner {
+  - log: Logger
+  + cleanPreviousData(): void
+  + GraphDatabasePreviousDataCleaner(): 
+}
+class GraphDatabaseSchemaDataInitializer {
+  - log: Logger
+  + initializeSchemaData(): void
+  + GraphDatabaseSchemaDataInitializer(): 
+}
+class GraphDatabaseUtil {
+  + databaseUrl: String
+  + databaseName: String
+  + schemaManager: SchemaManager
+  + graphManager: GraphManager
+  + gremlinManager: GremlinManager
+  ~ hugeClient: HugeClient
+  + initializeData(): void
+  + cutPathFromHead(Path, int): Path
+  + changeResultSetToPathSet(ResultSet): Set<Path>
+  + changeResultSetToVertexSet(ResultSet): Set<Vertex>
+  + changeResultSetToEdgeSet(ResultSet): Set<Edge>
+  + GraphDatabaseUtil(): 
+}
+interface HaveDAO << interface >>
+class HaveDAOImpl {
+  + HaveDAOImpl(): 
+}
+interface NextRecordDAO << interface >> {
+  + insert(Vertex, Vertex): Edge
+}
+class NextRecordDAOImpl {
+  + insert(Vertex, Vertex): Edge
+  + NextRecordDAOImpl(): 
+}
+interface NextStationDAO << interface >> {
+  + insert(Vertex, Vertex): Edge
+  + delete(Vertex): void
+}
+class NextStationDAOImpl {
+  ~ gremlin: GremlinManager
+  + delete(Vertex): void
+  + insert(Vertex, Vertex): Edge
+  + NextStationDAOImpl(): 
+}
+interface OrderControlService << interface >> {
+  + calcFee(String, String): int
+  + searchOrderRecords(String): List<RecordVO>
+  + insertNewOrder(String, int, OrderDTO): void
+}
+class OrderControlServiceImpl {
+  + insertNewOrder(String, int, OrderDTO): void
+  + searchOrderRecords(String): List<RecordVO>
+  + calcFee(String, String): int
+  + OrderControlServiceImpl(): 
+}
+class OrderController {
+  + search_order(String): String
+  + place_order(OrderDTO): String
+  + OrderController(): 
+}
+interface OrderDAO << interface >> {
+  + insert(OrderPO): Vertex
+  + selectById(String): Vertex
+  + updateDatetimeEnd(String, Date): Vertex
+  + updateOrderStatusById(String, OrderStatusEnum): Vertex
+}
+class OrderDAOImpl {
+  ~ gremlin: GremlinManager
+  + updateOrderStatusById(String, OrderStatusEnum): Vertex
+  + insert(OrderPO): Vertex
+  + updateDatetimeEnd(String, Date): Vertex
+  + selectById(String): Vertex
+  + OrderDAOImpl(): 
+}
+class OrderDTO {
+  - consigner_name: String
+  - order_type: String
+  - consignee_name: String
+  - consigner_id: String
+  - inspect: String
+  - employee_account_id: String
+  - cargo_type: String
+  - consignee_phone: String
+  - consigner_phone: String
+  - consigner_address: String
+  - consigner_city: String
+  - consignee_address: String
+  - consignee_city: String
+  - cargo_info: String
+  - employee_account_password: String
+  - consigner_province: String
+  - consignee_province: String
+  + setCargo_type(String): void
+  + setOrder_type(String): void
+  + setConsigner_city(String): void
+  + getEmployee_account_id(): String
+  + getEmployee_account_password(): String
+  + getConsigner_name(): String
+  + setConsignee_city(String): void
+  + getConsigner_id(): String
+  + getInspect(): String
+  + hashCode(): int
+  + getConsigner_address(): String
+  + setEmployee_account_password(String): void
+  + getConsigner_phone(): String
+  + setConsigner_name(String): void
+  + setConsigner_address(String): void
+  + setConsigner_phone(String): void
+  + getConsigner_city(): String
+  + setConsignee_phone(String): void
+  + getOrder_type(): String
+  + getCargo_info(): String
+  + getConsigner_province(): String
+  + getConsignee_province(): String
+  + setConsigner_id(String): void
+  + toString(): String
+  + setCargo_info(String): void
+  + getConsignee_name(): String
+  + setConsignee_name(String): void
+  + getConsignee_phone(): String
+  + setInspect(String): void
+  + setEmployee_account_id(String): void
+  + equals(Object): boolean
+  + setConsignee_province(String): void
+  + getConsignee_city(): String
+  + setConsigner_province(String): void
+  + setConsignee_address(String): void
+  + getConsignee_address(): String
+  + getCargo_type(): String
+  # canEqual(Object): boolean
+  + OrderDTO(): 
+  + OrderDTO(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String): 
+}
+class OrderIdVO {
+  - fee: String
+  - order_id: String
+  + getOrder_id(): String
+  + getFee(): String
+  + setOrder_id(String): void
+  + setFee(String): void
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+  # canEqual(Object): boolean
+  + OrderIdVO(String, String): 
+  + OrderIdVO(): 
+}
+class OrderPO {
+  - inspect: String
+  - consigneePhone: String
+  - cargoType: CargoTypeEnum
+  - datetimeStart: Date
+  - id: String
+  - addressTo: String
+  - addressFrom: String
+  - orderStatus: OrderStatusEnum
+  - consigneeName: String
+  - information: String
+  - fee: int
+  - orderType: OrderTypeEnum
+  - datetimeEnd: Date
+  + getId(): String
+  + getOrderType(): OrderTypeEnum
+  + getConsigneeName(): String
+  + setInspect(String): void
+  + getOrderStatus(): OrderStatusEnum
+  + getAddressTo(): String
+  + getConsigneePhone(): String
+  + equals(Object): boolean
+  + getDatetimeEnd(): Date
+  + setAddressTo(String): void
+  + hashCode(): int
+  + setInformation(String): void
+  + getFee(): int
+  + getCargoType(): CargoTypeEnum
+  + setOrderStatus(OrderStatusEnum): void
+  + setCargoType(CargoTypeEnum): void
+  + setDatetimeStart(Date): void
+  + setDatetimeEnd(Date): void
+  + getDatetimeStart(): Date
+  + setOrderType(OrderTypeEnum): void
+  + getInformation(): String
+  + getInspect(): String
+  + getAddressFrom(): String
+  + setConsigneePhone(String): void
+  + toString(): String
+  + setFee(int): void
+  + setAddressFrom(String): void
+  + setConsigneeName(String): void
+  + setId(String): void
+  # canEqual(Object): boolean
+  + OrderPO(String, OrderTypeEnum, OrderStatusEnum, int, CargoTypeEnum, String, String, String, String, String, String, Date, Date): 
+  + OrderPO(String, int, OrderDTO): 
+  + OrderPO(Vertex): 
+}
+enum OrderStatusEnum << enumeration >> {
+  + LOST: 
+  + FINISH: 
+  + PREPARE: 
+  + CANCEL: 
+  + SENDING: 
+  + REJECT: 
+  + values(): OrderStatusEnum[]
+  + valueOf(String): OrderStatusEnum
+  + OrderStatusEnum(): 
+}
+enum OrderTypeEnum << enumeration >> {
+  + BACK: 
+  + SHIPPERPAY: 
+  + CONSIGHEEPAY: 
+  + values(): OrderTypeEnum[]
+  + valueOf(String): OrderTypeEnum
+  + OrderTypeEnum(): 
+}
+class PageController {
+  + search_order(): String
+  + about_project(): String
+  + domestic_offsite_warehousing(): String
+  + place_order(): String
+  + limit_rule(): String
+  + fee_rule(): String
+  + place_order_employee_assistance(): String
+  + international_bulk_shipping(): String
+  + domestic_speedpost(): String
+  + international_air_mailing(): String
+  + index(): String
+  + domestic_cold_chain_logistics(): String
+  + about_author(): String
+  + PageController(): 
+}
+interface PathDAO << interface >> {
+  + select(Vertex, Vertex): Edge
+}
+class PathDAOImpl {
+  ~ gremlin: GremlinManager
+  + select(Vertex, Vertex): Edge
+  + PathDAOImpl(): 
+}
+class PathPO {
+  ~ pathType: PathTypeEnum
+  ~ costTime: int
+  ~ sourceStation: Vertex
+  ~ targetStation: Vertex
+  ~ costDistance: int
+  + getSourceStation(): Vertex
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+  + getTargetStation(): Vertex
+  + getPathType(): PathTypeEnum
+  + getCostDistance(): int
+  + getCostTime(): int
+  + setSourceStation(Vertex): void
+  + setTargetStation(Vertex): void
+  + setPathType(PathTypeEnum): void
+  + setCostDistance(int): void
+  + setCostTime(int): void
+  # canEqual(Object): boolean
+  + PathPO(Vertex, Vertex, PathTypeEnum, int, int): 
+}
+interface PathPlanningDAO << interface >> {
+  + searchNearestTargetStation(Vertex): Vertex
+  + computeNextStation(Vertex, Vertex, CargoTypeEnum, OrderTypeEnum): Vertex
+}
+class PathPlanningDAOImpl {
+  ~ gremlin: GremlinManager
+  + searchNearestTargetStation(Vertex): Vertex
+  + computeNextStation(Vertex, Vertex, CargoTypeEnum, OrderTypeEnum): Vertex
+  + PathPlanningDAOImpl(): 
+}
+enum PathTypeEnum << enumeration >> {
+  + AIR: 
+  + SHIP: 
+  + LAND: 
+  + values(): PathTypeEnum[]
+  + valueOf(String): PathTypeEnum
+  + PathTypeEnum(): 
+}
+interface PlaceDAO << interface >> {
+  + insert(Vertex, Vertex): Edge
+}
+class PlaceDAOImpl {
+  + insert(Vertex, Vertex): Edge
+  + PlaceDAOImpl(): 
+}
+interface ProvinceDAO << interface >> {
+  + select(String): Vertex
+}
+class ProvinceDAOImpl {
+  ~ gremlin: GremlinManager
+  + select(String): Vertex
+  + ProvinceDAOImpl(): 
+}
+interface ProvinceFromDAO << interface >> {
+  + insert(Vertex, Vertex): Edge
+  + delete(Vertex): void
+}
+class ProvinceFromDAOImpl {
+  ~ gremlin: GremlinManager
+  + insert(Vertex, Vertex): Edge
+  + delete(Vertex): void
+  + ProvinceFromDAOImpl(): 
+}
+interface ProvinceToDAO << interface >> {
+  + insert(Vertex, Vertex): Edge
+  + delete(Vertex): void
+}
+class ProvinceToDAOImpl {
+  ~ gremlin: GremlinManager
+  + delete(Vertex): void
+  + insert(Vertex, Vertex): Edge
+  + ProvinceToDAOImpl(): 
+}
+interface RecordDAO << interface >> {
+  + insert(RecordPO): Vertex
+}
+class RecordDAOImpl {
+  ~ gremlin: GremlinManager
+  + insert(RecordPO): Vertex
+  + RecordDAOImpl(): 
+}
+class RecordPO {
+  - name: String
+  - datetime: Date
+  - recordType: RecordTypeEnum
+  + getRecordType(): RecordTypeEnum
+  + getDatetime(): Date
+  + getName(): String
+  + setDatetime(Date): void
+  + setRecordType(RecordTypeEnum): void
+  + setName(String): void
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+  # canEqual(Object): boolean
+  + RecordPO(Date, RecordTypeEnum, String): 
+  + RecordPO(Vertex): 
+}
+enum RecordTypeEnum << enumeration >> {
+  + EMPTY: 
+  + IN: 
+  + ABANDON: 
+  + RECEIVE: 
+  + REJECTION: 
+  + BACK: 
+  + DELIVER: 
+  + MISS: 
+  + OUT: 
+  + ERROR: 
+  + AGENT: 
+  + START: 
+  + valueOf(String): RecordTypeEnum
+  + values(): RecordTypeEnum[]
+  + RecordTypeEnum(): 
+}
+class RecordVO {
+  - msg: String
+  - datetime: String
+  - type: String
+  + getDatetime(): String
+  + getType(): String
+  + getMsg(): String
+  + setDatetime(String): void
+  + toString(): String
+  + setType(String): void
+  + setMsg(String): void
+  + equals(Object): boolean
+  + hashCode(): int
+  # canEqual(Object): boolean
+  + RecordVO(): 
+  + RecordVO(String, String, String): 
+  + RecordVO(RecordPO): 
+}
+interface SetDAO << interface >>
+class SetDAOImpl {
+  + SetDAOImpl(): 
+}
+class SnowFlakeUtil {
+  - MAX_MACHINE_NUM: long
+  - machineId: long
+  - MAX_DATACENTER_NUM: long
+  - SEQUENCE_BIT: long
+  - MAX_SEQUENCE: long
+  - MACHINE_BIT: long
+  - TIMESTMP_LEFT: long
+  - sequence: long
+  - DATACENTER_BIT: long
+  - lastStmp: long
+  - DATACENTER_LEFT: long
+  - MACHINE_LEFT: long
+  - datacenterId: long
+  - START_STMP: long
+  + nextId(): long
+  + getDefaultSnowFlakeId(): Long
+  - getNextMill(): long
+  - getNewstmp(): long
+  + SnowFlakeUtil(long, long): 
+}
+interface StartRecordDAO << interface >> {
+  + insert(Vertex, Vertex): Edge
+}
+class StartRecordDAOImpl {
+  + insert(Vertex, Vertex): Edge
+  + StartRecordDAOImpl(): 
+}
+interface StationDAO << interface >> {
+  + selectByName(String): Vertex
+}
+class StationDAOImpl {
+  ~ gremlin: GremlinManager
+  + selectByName(String): Vertex
+  + StationDAOImpl(): 
+}
+class StationPO {
+  - name: String
+  - cargoType: CargoTypeEnum
+  - level: int
+  + getName(): String
+  + getLevel(): int
+  + getCargoType(): CargoTypeEnum
+  + setName(String): void
+  + setLevel(int): void
+  + setCargoType(CargoTypeEnum): void
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+  # canEqual(Object): boolean
+  + StationPO(String, int, CargoTypeEnum): 
+  + StationPO(Vertex): 
+}
+class Test {
+  + main(String[]): void
+  + Test(): 
+}
+interface UserDAO << interface >> {
+  + selectByPhone(String): Set<Vertex>
+  + insert(UserPO): Vertex
+  + selectById(String): Set<Vertex>
+}
+class UserDAOImpl {
+  ~ gremlin: GremlinManager
+  + insert(UserPO): Vertex
+  + selectById(String): Set<Vertex>
+  + selectByPhone(String): Set<Vertex>
+  + UserDAOImpl(): 
+}
+class UserPO {
+  - name: String
+  - phone: String
+  - id: String
+  + getPhone(): String
+  + getId(): String
+  + getName(): String
+  + setId(String): void
+  + setName(String): void
+  + setPhone(String): void
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+  + VertexSetToUserEntitySet(Set<Vertex>): Set<UserPO>
+  # canEqual(Object): boolean
+  + UserPO(String, String, String): 
+  + UserPO(OrderDTO): 
+  + UserPO(Vertex): 
+}
+class YoE_logistics_Server_Country {
+  - log: Logger
+  + main(String[]): void
+  + YoE_logistics_Server_Country(): 
+}
+
+AdjacentCityDAOImpl                 -[#008200,dashed]-^  AdjacentCityDAO                    
+AdjacentProvinceDAOImpl             -[#008200,dashed]-^  AdjacentProvinceDAO                
+AdministerDAOImpl                   -[#008200,dashed]-^  AdministerDAO                      
+ArchiveDAOImpl                      -[#008200,dashed]-^  ArchiveDAO                         
+ArchiveDAOImpl                      -[#008200,dashed]-^  ArchiveDAO                         
+CityDAOImpl                         -[#008200,dashed]-^  CityDAO                            
+CityFromDAOImpl                     -[#008200,dashed]-^  CityFromDAO                        
+CityToDAOImpl                       -[#008200,dashed]-^  CityToDAO                          
+DataStorageDAOImpl                  -[#008200,dashed]-^  DataStorageDAO                     
+DataStorageDAOImpl                  -[#595959,dashed]->  RecordPO                           : "«create»"
+FinalStationDAOImpl                 -[#008200,dashed]-^  FinalStationDAO                    
+GraphDatabaseUtil                   -[#595959,dashed]->  GraphDatabaseGraphDataInitializer  : "«create»"
+GraphDatabaseUtil                   -[#595959,dashed]->  GraphDatabasePreviousDataCleaner   : "«create»"
+GraphDatabaseUtil                   -[#595959,dashed]->  GraphDatabaseSchemaDataInitializer : "«create»"
+HaveDAOImpl                         -[#008200,dashed]-^  HaveDAO                            
+NextRecordDAOImpl                   -[#008200,dashed]-^  NextRecordDAO                      
+NextStationDAOImpl                  -[#008200,dashed]-^  NextStationDAO                     
+OrderControlServiceImpl             -[#008200,dashed]-^  OrderControlService                
+OrderControlServiceImpl             -[#595959,dashed]->  OrderPO                            : "«create»"
+OrderControlServiceImpl             -[#595959,dashed]->  RecordPO                           : "«create»"
+OrderControlServiceImpl             -[#595959,dashed]->  RecordVO                           : "«create»"
+OrderControlServiceImpl             -[#595959,dashed]->  UserPO                             : "«create»"
+OrderController                     -[#595959,dashed]->  OrderIdVO                          : "«create»"
+OrderDAOImpl                        -[#008200,dashed]-^  OrderDAO                           
+OrderPO                            "1" *-[#595959,plain]-> "cargoType\n1" CargoTypeEnum                      
+OrderPO                            "1" *-[#595959,plain]-> "orderStatus\n1" OrderStatusEnum                    
+OrderPO                            "1" *-[#595959,plain]-> "orderType\n1" OrderTypeEnum                      
+PathDAOImpl                         -[#008200,dashed]-^  PathDAO                            
+PathPO                             "1" *-[#595959,plain]-> "pathType\n1" PathTypeEnum                       
+PathPlanningDAOImpl                 -[#008200,dashed]-^  PathPlanningDAO                    
+PlaceDAOImpl                        -[#008200,dashed]-^  PlaceDAO                           
+ProvinceDAOImpl                     -[#008200,dashed]-^  ProvinceDAO                        
+ProvinceFromDAOImpl                 -[#008200,dashed]-^  ProvinceFromDAO                    
+ProvinceToDAOImpl                   -[#008200,dashed]-^  ProvinceToDAO                      
+RecordDAOImpl                       -[#008200,dashed]-^  RecordDAO                          
+RecordPO                           "1" *-[#595959,plain]-> "recordType\n1" RecordTypeEnum                     
+SetDAOImpl                          -[#008200,dashed]-^  SetDAO                             
+StartRecordDAOImpl                  -[#008200,dashed]-^  StartRecordDAO                     
+StationDAOImpl                      -[#008200,dashed]-^  StationDAO                         
+StationPO                          "1" *-[#595959,plain]-> "cargoType\n1" CargoTypeEnum                      
+UserDAOImpl                         -[#008200,dashed]-^  UserDAO                            
+@enduml

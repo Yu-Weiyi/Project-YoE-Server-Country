@@ -20,7 +20,7 @@ public class YoE_logistics_Server_Country {
         log.info("YoE-logistics-Server-Country: Program start");
 
         //初始化（仅运行一次）
-//        GraphDatabaseUtil.initializeData();
+        GraphDatabaseUtil.initializeData();
 
 
         //TEST
@@ -32,9 +32,6 @@ public class YoE_logistics_Server_Country {
         //TODO 归档整理线程
         //TODO 连接处理线程
         //TODO 数据库通信线程
-
-        //结束
-//        graphDatabaseUtil.closeConnection();
 
         log.info("YoE-logistics-Server-Country: Program end");
 

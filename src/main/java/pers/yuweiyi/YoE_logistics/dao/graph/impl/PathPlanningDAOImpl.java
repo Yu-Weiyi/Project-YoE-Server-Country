@@ -5,8 +5,6 @@ import org.apache.hugegraph.structure.graph.Path;
 import org.apache.hugegraph.structure.graph.Vertex;
 import org.apache.hugegraph.structure.gremlin.ResultSet;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import pers.yuweiyi.YoE_logistics.dao.graph.PathPlanningDAO;
 import pers.yuweiyi.YoE_logistics.enums.CargoTypeEnum;
