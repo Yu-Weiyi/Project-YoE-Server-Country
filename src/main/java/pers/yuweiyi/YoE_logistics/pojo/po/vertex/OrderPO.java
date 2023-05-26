@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import pers.yuweiyi.YoE_logistics.enums.CargoTypeEnum;
 import pers.yuweiyi.YoE_logistics.enums.OrderStatusEnum;
 import pers.yuweiyi.YoE_logistics.enums.OrderTypeEnum;
+import pers.yuweiyi.YoE_logistics.filter.GremlinFilter;
 import pers.yuweiyi.YoE_logistics.pojo.dto.OrderDTO;
 import pers.yuweiyi.YoE_logistics.util.SnowFlakeUtil;
 
@@ -75,13 +76,15 @@ public class OrderPO {
     }
 
     public OrderPO(@NotNull String orderId, @NotNull int fee, @NotNull OrderDTO orderDTO) {
+        GremlinFilter gremlinFilter = new GremlinFilter();
+
         this.id = orderId;
         this.orderType = OrderTypeEnum.values()[Integer.parseInt(orderDTO.getOrder_type())];
         this.orderStatus = OrderStatusEnum.SENDING;
         this.fee = fee; //test fee项 计划更改为根据两地与货物类型，订单类型等在服务器端计算得出。
         this.cargoType = CargoTypeEnum.values()[Integer.parseInt(orderDTO.getCargo_type())];
-        this.information = orderDTO.getCargo_info();
-        this.inspect = orderDTO.getInspect();
+        this.information = gremlinFilter.doFilter(orderDTO.getCargo_info());
+        this.inspect = gremlinFilter.doFilter(orderDTO.getInspect());
         this.addressFrom = orderDTO.getConsigner_address();
         this.addressTo = orderDTO.getConsignee_address();
         this.consigneeName = orderDTO.getConsignee_name();

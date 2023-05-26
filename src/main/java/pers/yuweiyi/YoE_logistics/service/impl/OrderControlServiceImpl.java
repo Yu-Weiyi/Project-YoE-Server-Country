@@ -20,6 +20,7 @@ import pers.yuweiyi.YoE_logistics.enums.CargoTypeEnum;
 import pers.yuweiyi.YoE_logistics.enums.OrderStatusEnum;
 import pers.yuweiyi.YoE_logistics.enums.OrderTypeEnum;
 import pers.yuweiyi.YoE_logistics.enums.RecordTypeEnum;
+import pers.yuweiyi.YoE_logistics.filter.GremlinFilter;
 import pers.yuweiyi.YoE_logistics.pojo.dto.OrderDTO;
 import pers.yuweiyi.YoE_logistics.pojo.po.vertex.OrderPO;
 import pers.yuweiyi.YoE_logistics.pojo.po.vertex.RecordPO;
@@ -47,13 +48,14 @@ public class OrderControlServiceImpl implements OrderControlService {
     @Override
     public void insertNewOrder(String orderId, int fee, OrderDTO orderDTO) {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        GremlinFilter gremlinFilter = new GremlinFilter();
 
         UserPO userPO = new UserPO(orderDTO);
         OrderPO orderPO = new OrderPO(orderId, fee, orderDTO);
-        String provinceFrom = orderDTO.getConsigner_province();
-        String cityFrom = orderDTO.getConsigner_city();
-        String provinceTo = orderDTO.getConsignee_province();
-        String cityTo = orderDTO.getConsignee_city();
+        String provinceFrom = gremlinFilter.doFilter(orderDTO.getConsigner_province());
+        String cityFrom = gremlinFilter.doFilter(orderDTO.getConsigner_city());
+        String provinceTo = gremlinFilter.doFilter(orderDTO.getConsignee_province());
+        String cityTo = gremlinFilter.doFilter(orderDTO.getConsignee_city());
 
         DataStorageDAO dataStorageDAO = (DataStorageDAOImpl) context.getBean("dataStorageDAOImpl");
         dataStorageDAO.insertNewOrder(userPO, orderPO, provinceFrom, cityFrom, provinceTo,cityTo);
