@@ -1,5 +1,7 @@
 package pers.yuweiyi.YoE_logistics.dao.graph;
 
+import org.apache.hugegraph.structure.graph.Edge;
+import org.apache.hugegraph.structure.graph.Path;
 import org.apache.hugegraph.structure.graph.Vertex;
 import pers.yuweiyi.YoE_logistics.enums.CargoTypeEnum;
 import pers.yuweiyi.YoE_logistics.enums.OrderTypeEnum;
@@ -17,4 +19,8 @@ public interface PathPlanningDAO {
     Vertex searchNearestTargetStation(Vertex city);
 
     Vertex computeNextStation(Vertex nowStation, Vertex targetStation, CargoTypeEnum cargoType, OrderTypeEnum orderType);
+
+    int computeWeightedDIstanceBetweenStations(Path path);
+
+    Edge updateNextStation(Vertex order, Vertex nextStation);
 }

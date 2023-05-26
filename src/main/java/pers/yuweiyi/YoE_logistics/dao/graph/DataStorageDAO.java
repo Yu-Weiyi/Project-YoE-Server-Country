@@ -23,4 +23,18 @@ public interface DataStorageDAO {
     Vertex insertNewRecordByOrderId(String orderId, RecordPO newRecord);
 
     Path selectRecordsByOrderId(String orderId);
+
+    Vertex selectFinalStation(String orderId);
+
+    Vertex selectProvinceFrom(String orderId);
+
+    Vertex selectCityFrom(String orderId);
+
+    Vertex selectProvinceTo(String orderId);
+
+    Vertex selectCityTo(String orderId);
+
+    void archive(String orderId);
+
+    void sendBack(String orderId);
 }

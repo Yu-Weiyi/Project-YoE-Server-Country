@@ -77,7 +77,7 @@ public class OrderPO {
     public OrderPO(@NotNull String orderId, @NotNull int fee, @NotNull OrderDTO orderDTO) {
         this.id = orderId;
         this.orderType = OrderTypeEnum.values()[Integer.parseInt(orderDTO.getOrder_type())];
-        this.orderStatus = OrderStatusEnum.PREPARE;
+        this.orderStatus = OrderStatusEnum.SENDING;
         this.fee = fee; //test fee项 计划更改为根据两地与货物类型，订单类型等在服务器端计算得出。
         this.cargoType = CargoTypeEnum.values()[Integer.parseInt(orderDTO.getCargo_type())];
         this.information = orderDTO.getCargo_info();

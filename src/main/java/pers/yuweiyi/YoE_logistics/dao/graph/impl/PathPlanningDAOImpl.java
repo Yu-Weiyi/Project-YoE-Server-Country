@@ -1,11 +1,16 @@
 package pers.yuweiyi.YoE_logistics.dao.graph.impl;
 
 import org.apache.hugegraph.driver.GremlinManager;
+import org.apache.hugegraph.structure.graph.Edge;
 import org.apache.hugegraph.structure.graph.Path;
 import org.apache.hugegraph.structure.graph.Vertex;
 import org.apache.hugegraph.structure.gremlin.ResultSet;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
+import pers.yuweiyi.YoE_logistics.dao.edge.NextStationDAO;
+import pers.yuweiyi.YoE_logistics.dao.edge.impl.NextStationDAOImpl;
 import pers.yuweiyi.YoE_logistics.dao.graph.PathPlanningDAO;
 import pers.yuweiyi.YoE_logistics.enums.CargoTypeEnum;
 import pers.yuweiyi.YoE_logistics.enums.OrderTypeEnum;
@@ -29,7 +34,6 @@ public class PathPlanningDAOImpl implements PathPlanningDAO {
 
     @Override
     public Vertex searchNearestTargetStation(@NotNull Vertex city) {
-        //TODO 此处暂未考虑距离因素
         ResultSet resultSet = gremlin.gremlin(
                 "g.V('" + city.id() + "')." +
                   "choose(" +
@@ -59,46 +63,84 @@ public class PathPlanningDAOImpl implements PathPlanningDAO {
 
     @Override
     public Vertex computeNextStation(@NotNull Vertex nowStation, @NotNull Vertex targetStation, CargoTypeEnum cargoType, OrderTypeEnum orderType) {
-        Path path = null;
+        Vertex nextStation = null;
 
-        if (nowStation.property("name") == targetStation.property("name"))
-        if (cargoType == CargoTypeEnum.COMMON) {
-            // TODO 此处暂未考虑权重
-            ResultSet resultSet = gremlin.gremlin(
-                    "g.V('" + nowStation.id() + "')." +
-                      "repeat(" +
-                        "outE()." +
-                        "has('path','pathType',0)." +
-                        "inV())." +
-                      "until(" +
-                        "hasId('" + targetStation.id() + "'))." +
-                      "path()." +
-                      "limit(1)"
-            ).execute();
-            Set<Path> pathSet = GraphDatabaseUtil.changeResultSetToPathSet(resultSet);
-            if (pathSet.iterator().hasNext()){
-                path = pathSet.iterator().next();
-            }
+        Path path = null;
+        int distance = 0;
+        Path tempPath = null;
+        int tempDistance = 0;
+
+        if (nowStation.property("name") == targetStation.property("name")){
+            nextStation = targetStation;
         }
         else {
-            // TODO 此处暂未考虑权重
-            ResultSet resultSet = gremlin.gremlin(
-                    "g.V('" + nowStation.id() + "')." +
-                            "repeat(" +
-                            "outE()." +
+            ResultSet resultSet;
+            if (cargoType == CargoTypeEnum.COMMON) {
+                resultSet = gremlin.gremlin(
+                        "g.V('" + nowStation.id() + "')." +
+                          "repeat(" +
+                            "outE('path')." +
+                            "has('pathType',0)." +
                             "inV())." +
-                            "until(" +
+                          "until(" +
                             "hasId('" + targetStation.id() + "'))." +
-                            "path()." +
-                            "limit(1)"
-            ).execute();
+                          "path()." +
+                          "limit(3)"
+                ).execute();
+            }
+            else {
+                resultSet = gremlin.gremlin(
+                        "g.V('" + nowStation.id() + "')." +
+                          "repeat(" +
+                            "outE('path')." +
+                            "inV())." +
+                          "until(" +
+                            "hasId('" + targetStation.id() + "'))." +
+                          "path()." +
+                          "limit(3)"
+                ).execute();
+            }
             Set<Path> pathSet = GraphDatabaseUtil.changeResultSetToPathSet(resultSet);
             if (pathSet.iterator().hasNext()){
                 path = pathSet.iterator().next();
+                distance = computeWeightedDIstanceBetweenStations(path);
             }
+            int i = 0;
+            while (pathSet.iterator().hasNext()){
+                i++;
+                tempPath = pathSet.iterator().next();
+                tempDistance = computeWeightedDIstanceBetweenStations(tempPath);
+                if (distance > tempDistance){
+                    path = tempPath;
+                    distance = tempDistance;
+                }
+                if (i >= 3) {
+                    break;
+                }
+            }
+            List<Object> list = path.objects();
+            nextStation = (Vertex) list.get(2);
         }
-
-        List<Object> list = path.objects();
-        return (Vertex) list.get(2);
+        return nextStation;
     }
+
+    @Override
+    public int computeWeightedDIstanceBetweenStations(@NotNull Path path) {
+        int sum = 0;
+        List<Object> items = path.objects();
+        for (int i = 1; i < items.size(); i += 2){
+            sum += (int) (((Edge) (items.get(i))).property("costDistance"));
+        }
+        return sum;
+    }
+
+    @Override
+    public Edge updateNextStation(Vertex order, Vertex nextStation) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        NextStationDAO nextStationDAO = (NextStationDAOImpl) context.getBean("nextStationDAOImpl");
+        nextStationDAO.delete(order);
+        Edge edge = nextStationDAO.insert(order, nextStation);
+        return edge;
+    }
+
 }

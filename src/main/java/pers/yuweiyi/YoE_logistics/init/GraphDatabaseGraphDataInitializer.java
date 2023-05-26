@@ -917,6 +917,10 @@ public class GraphDatabaseGraphDataInitializer {
                 "pathType", air,
                 "costDistance", 99,
                 "costTime", 3);
+        stationH1a.addEdge("path", stationI2a,
+                "pathType", land,
+                "costDistance", 8,
+                "costTime", 8);
         stationI1a.addEdge("path", stationI3a,
                 "pathType", land,
                 "costDistance", 10,

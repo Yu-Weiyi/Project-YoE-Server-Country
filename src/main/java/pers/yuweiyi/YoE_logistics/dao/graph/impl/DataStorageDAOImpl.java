@@ -14,7 +14,9 @@ import pers.yuweiyi.YoE_logistics.dao.edge.impl.*;
 import pers.yuweiyi.YoE_logistics.dao.graph.DataStorageDAO;
 import pers.yuweiyi.YoE_logistics.dao.graph.PathPlanningDAO;
 import pers.yuweiyi.YoE_logistics.dao.vertex.*;
+import pers.yuweiyi.YoE_logistics.dao.vertex.ArchiveDAO;
 import pers.yuweiyi.YoE_logistics.dao.vertex.impl.*;
+import pers.yuweiyi.YoE_logistics.dao.vertex.impl.ArchiveDAOImpl;
 import pers.yuweiyi.YoE_logistics.enums.RecordTypeEnum;
 import pers.yuweiyi.YoE_logistics.pojo.po.vertex.OrderPO;
 import pers.yuweiyi.YoE_logistics.pojo.po.vertex.RecordPO;
@@ -118,7 +120,7 @@ public class DataStorageDAOImpl implements DataStorageDAO {
 
     @Override
     public Path selectRecordsByOrderId(String orderId) {
-        ResultSet resultSet =gremlin.gremlin(
+        ResultSet resultSet = gremlin.gremlin(
                 "g.V()." +
                   "has('order', 'id', '" + orderId + "')." +
                   "out('startRecord')." +
@@ -131,4 +133,121 @@ public class DataStorageDAOImpl implements DataStorageDAO {
         path = GraphDatabaseUtil.cutPathFromHead(path, 2);//去除头部Order的部分,但仍至少剩余一个空的Record。
         return path;
     }
+
+    @Override
+    public Vertex selectFinalStation(String orderId) {
+        ResultSet resultSet = gremlin.gremlin(
+                "g.V()." +
+                  "has('order', 'id', '" + orderId + "')." +
+                  "out('finalStation')"
+        ).execute();
+        Vertex vertex = GraphDatabaseUtil.changeResultSetToVertexSet(resultSet).iterator().next();
+        return vertex;
+    }
+
+    @Override
+    public Vertex selectProvinceFrom(String orderId) {
+        ResultSet resultSet = gremlin.gremlin(
+                "g.V()." +
+                  "has('order', 'id', '" + orderId + "')." +
+                  "out('provinceFrom')"
+        ).execute();
+        Vertex vertex = GraphDatabaseUtil.changeResultSetToVertexSet(resultSet).iterator().next();
+        return vertex;
+    }
+
+    @Override
+    public Vertex selectCityFrom(String orderId) {
+        ResultSet resultSet = gremlin.gremlin(
+                "g.V()." +
+                  "has('order', 'id', '" + orderId + "')." +
+                  "out('cityFrom')"
+        ).execute();
+        Vertex vertex = GraphDatabaseUtil.changeResultSetToVertexSet(resultSet).iterator().next();
+        return vertex;
+    }
+
+
+    @Override
+    public Vertex selectProvinceTo(String orderId) {
+        ResultSet resultSet = gremlin.gremlin(
+                "g.V()." +
+                  "has('order', 'id', '" + orderId + "')." +
+                  "out('provinceTo')"
+        ).execute();
+        Vertex vertex = GraphDatabaseUtil.changeResultSetToVertexSet(resultSet).iterator().next();
+        return vertex;
+    }
+
+    @Override
+    public Vertex selectCityTo(String orderId) {
+        ResultSet resultSet = gremlin.gremlin(
+                "g.V()." +
+                  "has('order', 'id', '" + orderId + "')." +
+                  "out('cityTo')"
+        ).execute();
+        Vertex vertex = GraphDatabaseUtil.changeResultSetToVertexSet(resultSet).iterator().next();
+        return vertex;
+    }
+
+    @Override
+    public void archive(String orderId) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+
+        OrderDAO orderDAO = (OrderDAOImpl) context.getBean("orderDAOImpl");
+        Vertex orderVertex = orderDAO.selectById(orderId);
+
+        NextStationDAO nextStationDAO = (NextStationDAOImpl) context.getBean("nextStationDAOImpl");
+        nextStationDAO.delete(orderVertex);
+
+        FinalStationDAO finalStationDAO = (FinalStationDAOImpl) context.getBean("finalStationDAOImpl");
+        finalStationDAO.delete(orderVertex);
+
+        ProvinceFromDAO provinceFromDAO = (ProvinceFromDAOImpl) context.getBean("provinceFromDAOImpl");
+        provinceFromDAO.delete(orderVertex);
+
+        ProvinceToDAO provinceToDAO = (ProvinceToDAOImpl) context.getBean("provinceToDAOImpl");
+        provinceToDAO.delete(orderVertex);
+
+        CityFromDAO cityFromDAO = (CityFromDAOImpl) context.getBean("cityFromDAOImpl");
+        cityFromDAO.delete(orderVertex);
+
+        CityToDAO cityToDAO = (CityToDAOImpl) context.getBean("cityToDAOImpl");
+        cityToDAO.delete(orderVertex);
+
+        //TODO archive链表
+    }
+
+    @Override
+    public void sendBack(String orderId) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+
+        OrderDAO orderDAO = (OrderDAOImpl) context.getBean("orderDAOImpl");
+        Vertex orderVertex = orderDAO.selectById(orderId);
+
+        Vertex provinceFromVertex = selectProvinceFrom(orderId);
+        ProvinceToDAO provinceToDAO = (ProvinceToDAOImpl) context.getBean("provinceToDAOImpl");
+        provinceToDAO.delete(orderVertex);
+        provinceToDAO.insert(orderVertex, provinceFromVertex);
+
+        PathPlanningDAO pathPlanningDAO = (PathPlanningDAOImpl) context.getBean("pathPlanningDAOImpl");
+
+        Vertex cityFromVertex = selectCityFrom(orderId);
+        Vertex oldCityToVertex = selectCityTo(orderId);
+        CityToDAO cityToDAO = (CityToDAOImpl) context.getBean("cityToDAOImpl");
+        cityToDAO.delete(orderVertex);
+        cityToDAO.insert(orderVertex, cityFromVertex);
+
+        FinalStationDAO finalStationDAO = (FinalStationDAOImpl) context.getBean("finalStationDAOImpl");
+        finalStationDAO.delete(orderVertex);
+        Vertex newFinalStationVertex = pathPlanningDAO.searchNearestTargetStation(cityFromVertex);
+        finalStationDAO.insert(orderVertex, newFinalStationVertex);
+
+        NextStationDAO nextStationDAO = (NextStationDAOImpl) context.getBean("nextStationDAOImpl");
+        nextStationDAO.delete(orderVertex);
+        Vertex newNextStationVertex = pathPlanningDAO.searchNearestTargetStation(oldCityToVertex);
+        nextStationDAO.insert(orderVertex, newNextStationVertex);
+    }
+
+
 }

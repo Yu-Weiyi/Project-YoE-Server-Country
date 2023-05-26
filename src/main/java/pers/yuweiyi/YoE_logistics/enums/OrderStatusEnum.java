@@ -15,7 +15,8 @@ public enum OrderStatusEnum {
     SENDING,        //运输
                 //结果
     LOST,           //丢失
-    CANCEL,         //发回
+    CANCEL,         //取消
     FINISH,         //结束
     REJECT          //拒收
+
 }
