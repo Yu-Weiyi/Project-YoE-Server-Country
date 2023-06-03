@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import pers.yuweiyi.YoE_logistics.dao.edge.PathDAO;
+import pers.yuweiyi.YoE_logistics.dao.vertex.StationDAO;
+import pers.yuweiyi.YoE_logistics.dao.vertex.impl.StationDAOImpl;
 import pers.yuweiyi.YoE_logistics.util.GraphDatabaseUtil;
 
 import java.util.Set;
@@ -36,7 +38,7 @@ public class PathDAOImpl implements PathDAO {
                     "has('station', 'name', '" + sourceStation.property("name") + "'))." +
                   "where(" +
                     "inV()." +
-                    "has('station', 'name', '" + targetStation.property("name") + "'))."
+                    "has('station', 'name', '" + targetStation.property("name") + "'))"
         ).execute();
         Set<Edge> edgeSet = GraphDatabaseUtil.changeResultSetToEdgeSet(resultSet);
         if (edgeSet.iterator().hasNext()){
@@ -44,4 +46,20 @@ public class PathDAOImpl implements PathDAO {
         }
         return null;
     }
+
+    @Override
+    public Edge select(String sourceStationName, String targetStationName) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        StationDAO stationDAO = (StationDAOImpl) context.getBean("stationDAOImpl");
+        PathDAO pathDAO = (PathDAOImpl) context.getBean("pathDAOImpl");
+
+        Vertex stationFromVertex = stationDAO.selectByName(sourceStationName);
+        Vertex stationToVertex = stationDAO.selectByName(targetStationName);
+
+        Edge pathEdge = select(stationFromVertex, stationToVertex);
+
+        return pathEdge;
+    }
+
+
 }

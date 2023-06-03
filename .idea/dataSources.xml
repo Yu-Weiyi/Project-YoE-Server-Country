@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:postgresql://172.31.239.16/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="hugegraph@122.9.141.152" uuid="ef1d8846-8322-41d0-8f7b-f2f088379b6f">
+    <data-source source="LOCAL" name="hugegraph@1.14.105.243" uuid="8038bc96-e91c-4ba9-9cbd-79f3b8200da9">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://122.9.141.152:5432/hugegraph?loggerLevel=OFF&amp;socketTimeout=0&amp;useSSL=false</jdbc-url>
+      <jdbc-url>jdbc:postgresql://1.14.105.243:5432/hugegraph?loggerLevel=OFF&amp;so    cketTimeout=0&amp;useSSL=false</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

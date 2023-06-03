@@ -29,6 +29,8 @@ public class YoE_logistics_Server_Country {
 
         //TODO ___Enum.valueOf(String) -> ___Enum.values()[int]
 
+        //TODO __DTO extends DTO (abstract class)
+
         //TODO 归档整理线程
         //TODO 连接处理线程
         //TODO 数据库通信线程

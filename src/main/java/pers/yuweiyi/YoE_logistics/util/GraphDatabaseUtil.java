@@ -33,6 +33,7 @@ import java.util.Set;
 //@Slf4j
 public class GraphDatabaseUtil {
     public static String databaseUrl = "http://172.23.90.124:8080";
+//    public static String databaseUrl = "http://127.0.0.1:8080";
     public static String databaseName = "hugegraph";
     static HugeClient hugeClient;
     public static SchemaManager schemaManager;

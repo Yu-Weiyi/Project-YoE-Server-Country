@@ -5,7 +5,7 @@
   <artifactId>YoE-logistics-Server-Country</artifactId>
   <packaging>war</packaging>
   <name>YoE-logistics-Server-Country</name>
-  <version>0.1.0</version>
+  <version>1.0.0</version>
   <build>
     <resources>
       <resource>
@@ -37,7 +37,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>pers.yu_weiyi.YoE_logistics.YoE_logistics_Server_Country</mainClass>
+                  <mainClass>pers.yuweiyi.YoE_logistics.YoE_logistics_Server_Country</mainClass>
                 </transformer>
               </transformers>
             </configuration>

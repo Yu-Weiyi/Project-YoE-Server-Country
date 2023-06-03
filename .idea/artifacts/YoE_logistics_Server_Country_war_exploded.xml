@@ -90,7 +90,7 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.14.2" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.14.2" />
           <element id="library" level="project" name="Maven: cn.hutool:hutool-all:5.7.20" />
-          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.26" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.28" />
           <element id="library" level="project" name="Maven: org.jetbrains:annotations:24.0.1" />
         </element>
       </element>

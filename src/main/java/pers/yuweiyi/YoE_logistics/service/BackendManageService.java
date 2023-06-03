@@ -11,4 +11,6 @@ package pers.yuweiyi.YoE_logistics.service;
  */
 public interface BackendManageService {
     void updatePathWeight(String stationFromName, String stationToName, int newWeight);
+
+    int searchPathWeight(String stationFromName, String stationToName);
 }

@@ -14,4 +14,6 @@ import org.apache.hugegraph.structure.graph.Vertex;
  */
 public interface PathDAO {
     Edge select(Vertex sourceStation, Vertex targetStation);
+
+    Edge select(String sourceStationName, String targetStationName);
 }

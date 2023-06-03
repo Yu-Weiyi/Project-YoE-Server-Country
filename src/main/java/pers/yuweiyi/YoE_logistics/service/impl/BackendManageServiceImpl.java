@@ -26,14 +26,24 @@ public class BackendManageServiceImpl implements BackendManageService {
     @Override
     public void updatePathWeight(String stationFromName, String stationToName, int newWeight) {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-        StationDAO stationDAO = (StationDAOImpl) context.getBean("stationDAOImpl");
-        Vertex stationFromVertex = stationDAO.selectByName(stationFromName);
-        Vertex stationToVertex = stationDAO.selectByName(stationToName);
-
         PathDAO pathDAO = (PathDAOImpl) context.getBean("pathDAOImpl");
-        Edge pathEdge = pathDAO.select(stationFromVertex, stationToVertex);
+
+        Edge pathEdge = pathDAO.select(stationFromName, stationToName);
 
         pathEdge.property("costDistance", newWeight);
     }
+
+    @Override
+    public int searchPathWeight(String stationFromName, String stationToName) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        PathDAO pathDAO = (PathDAOImpl) context.getBean("pathDAOImpl");
+
+        Edge pathEdge = pathDAO.select(stationFromName, stationToName);
+
+        int pathWeight =  (int) pathEdge.property("costDistance");
+
+        return pathWeight;
+    }
+
+
 }

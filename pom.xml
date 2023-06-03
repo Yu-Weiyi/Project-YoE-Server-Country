@@ -6,6 +6,7 @@
   <artifactId>YoE-logistics-Server-Country</artifactId>
   <version>1.0.0</version>
   <packaging>war</packaging>
+<!--  <packaging>jar</packaging>-->
 
   <name>YoE-logistics-Server-Country</name>
 
@@ -176,7 +177,7 @@
             <configuration>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>pers.yu_weiyi.YoE_logistics.YoE_logistics_Server_Country</mainClass>
+                  <mainClass>pers.yuweiyi.YoE_logistics.YoE_logistics_Server_Country</mainClass>
                 </transformer>
               </transformers>
             </configuration>
